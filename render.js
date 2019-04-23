@@ -1,5 +1,8 @@
 
 
+
+
+
 function create_text_span(class_name, text){
 	var span = document.createElement('span');
 	span.className = class_name
@@ -11,11 +14,20 @@ function create_text_span(class_name, text){
 
 
 
+function vaal_gem_info(item)
+{
+
+
+
+
+}
+
 
 
 //Creates the header for the popupbox 
 function create_header(item)
-{
+{	
+
 	item_name = item.name;
 	var item_header = document.createElement('div');
 	item_header.appendChild(create_text_span("l", ""))
@@ -36,7 +48,13 @@ function create_header(item)
 	item_header_type = document.createElement('div');
 	item_header_type.className = "itemName typeLine";
 	
-	item_header_type.appendChild(create_text_span("lc", item.typeLine))
+	item_type = item.typeLine
+	if (typeof item.vaal != 'undefined')
+	{
+		item_type = item.vaal.baseTypeName
+	}
+
+	item_header_type.appendChild(create_text_span("lc", item_type))
 
 	item_header.appendChild(item_header_type);
 	item_header.appendChild(create_text_span("r", ""));
@@ -78,8 +96,9 @@ function create_mod(mod_class,text, left_text = "", left_hover = "", right_text 
 	
 	left_span.appendChild(left_hover_span);
 	right_span.appendChild(right_hover_span);
-
-	center_span.appendChild(document.createTextNode(text))
+	
+	mod_text = document.createTextNode(text.replace(/\n/g, '<br/>'))
+	center_span.appendChild(mod_text)
 
 	mod_div = document.createElement('div');
 	mod_div.className = mod_class;
@@ -334,6 +353,19 @@ function display_item(item)
 	parse_mods(item.veiledMods, "veiledMod", content_div, false, true);
 
 
+	//if vaal gem then add the remaining information
+	if (typeof item.vaal != 'undefined')
+	{
+		content_div.appendChild(vaal_gem_info(item))
+	}
+
+	//if prophecy then add the prophecyText
+	if (typeof item.prophecyText != 'undefined'){
+		var prophecy_div = document.createElement('div');
+		prophecy_div.className = 'prophecyText colourDefault';
+		prophecy_div.appendChild(create_text_span('lc', item.prophecyText));
+		content_div.appendChild(prophecy_div);
+	}
 
 	//Add in text at end for unidentified, corrupted, mirrored
 	if (!item.identified){
@@ -359,14 +391,84 @@ function display_item(item)
 	box_content.appendChild(content_div);
 
 	//final pass for poe markup for div cards and resonators
-	console.log(content_div.innerHTML);
 	content_div.innerHTML = poe_markup(content_div.innerHTML);
-	console.log(content_div.innerHTML);
-	console.log("-----");
 	box_container.appendChild(box_content);
 
 	return box_container
 
+
+}
+
+socket_dict = {"W" : "socketGen", "R" : "socketStr", "G" : "socketDex", "B" : "socketInt", "A" : "socketAbyss", "DV" : "socketDelve"}
+function create_socket_div(item){
+	socket_div = document.createElement('div');
+	
+	socket_number = 0
+	if (typeof item.sockets != 'undefined')
+	{
+		socket_number = item.sockets.length
+		for(socket_index = 0; socket_index < socket_number - 1; socket_index ++)
+		{
+			if (item.sockets[socket_index].group == item.sockets[socket_index + 1].group){
+				socket_link = document.createElement('div');
+				socket_link.className = "socketLink socketLink" + socket_index
+				socket_div.appendChild(socket_link)				
+			}
+
+			new_socket = document.createElement('div');
+
+			socket_add = ""
+			if (socket_index == 2 || socket_index == 3){
+				socket_add = "socketRight "
+			}
+			
+			new_socket.className = "socket " + socket_add + socket_dict[item.sockets[socket_index]["sColour"]]
+			socket_div.appendChild(new_socket)
+			
+		}
+		socket_index = socket_number - 1;
+		new_socket = document.createElement('div');
+
+		socket_add = ""
+		if (socket_index == 2 || socket_index == 3){
+			socket_add = "socketRight "
+		}
+		
+		new_socket.className = "socket " + socket_add + socket_dict[item.sockets[socket_index]["sColour"]]
+		socket_div.appendChild(new_socket)
+	}
+
+	socket_div.className = "sockets numSockets" + socket_number
+
+	return socket_div	
+
+}
+
+
+function render_item(item){
+	var results_wrapper = document.createElement('div');
+	results_wrapper.className = "results"
+	
+	var item_container = document.createElement('div');
+	item_container.className = "results newItemContainer itemRender iW" + item.w + " iH" + item.h
+	
+	var icon_container = document.createElement('div');
+	icon_container.className = "iconContainer";
+
+	var icon_div = document.createElement('div');
+	icon_div.className = "icon";
+	
+	var icon_image = document.createElement('img');
+	icon_image.src = item.icon;
+	
+	item_container.appendChild(icon_container)
+	icon_container.appendChild(icon_div)
+	icon_div.appendChild(icon_image)
+	icon_div.appendChild(create_socket_div(item))
+	
+	results_wrapper.appendChild(item_container);
+	
+	return results_wrapper
 
 }
 
