@@ -1,0 +1,359 @@
+.results.compact .itemPopupContainer {
+ text-align:initial;
+ font-size:0.85em;
+ font-family:unset;
+ background:none
+}
+.results.compact .itemPopupContainer .itemHeader .l,
+.results.compact .itemPopupContainer .itemHeader .r {
+ display:none
+}
+.results.compact .itemPopupContainer .itemHeader {
+ background:none !important;
+ font-size:1.1em;
+ height:auto !important
+}
+.results.compact .itemPopupContainer .vaalHeader {
+ background:none;
+ font-size:1.1em;
+ height:auto !important;
+ padding:0.4em 0em 0.5em 0em
+}
+.results.compact .itemPopupContainer .secDescrText {
+ display:none
+}
+.results.compact .itemPopupContainer .secDescrText+.separator {
+ display:none
+}
+.results.compact .itemPopupContainer .itemName {
+ display:inline-block
+}
+.results.compact .itemPopupContainer .itemName .lc,
+.results.compact .itemPopupContainer .itemName .lc {
+ padding:0 !important
+}
+.results.compact .itemPopupContainer .lc {
+ padding:0
+}
+.results.compact .itemPopupContainer .veiledMod .lc.prefix,
+.results.compact .itemPopupContainer .veiledMod .lc.suffix {
+ background-image:none;
+ animation:none;
+ color:#888e93;
+ width:auto
+}
+.results.compact .itemPopupContainer .lc.l,
+.results.compact .itemPopupContainer .lc.r {
+ float:right;
+ position:relative;
+ padding:0 2px
+}
+.results.compact .itemPopupContainer .content>div .lc.r.pr .d::before,
+.results.compact .itemPopupContainer .content>div .lc.r.su .d::before {
+ content:'('
+}
+.results.compact .itemPopupContainer .content>div .lc.r.pr .d::after,
+.results.compact .itemPopupContainer .content>div .lc.r.su .d::after {
+ content:')'
+}
+.results.compact .itemPopupContainer .separator {
+ background:none;
+ border-bottom:1px dotted #333;
+ height:1px
+}
+.results.compact .itemPopupContainer.divinationCard {
+ height:auto;
+ width:auto;
+ max-width:none
+}
+.results.compact .itemPopupContainer.divinationCard .cardFace {
+ display:none
+}
+.results.compact .itemPopupContainer.divinationCard .flavourTextWrapper {
+ display:none
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent {
+ background:none
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader {
+ padding-top:initial
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader .itemName {
+ color:unset;
+ font-size:unset
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent .stackSize {
+ position:relative;
+ left:auto;
+ top:auto;
+ width:auto;
+ height:auto;
+ padding:0.4em 0em 0em 0em
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper {
+ position:relative;
+ left:auto;
+ top:auto;
+ width:auto;
+ height:auto;
+ margin:0;
+ padding:0em 0em 0.5em 0em;
+ font-size:1em
+}
+.results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper .explicitModsContainer {
+ top:auto;
+ transform:none
+}
+.results.compact .explicitMod>.lc.s,
+.results.compact .implicitMod>.lc.s,
+.results.compact .utilityMod>.lc.s {
+ color:#e8dfe2
+}
+.results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3299347043"] {
+ color:#D14E4E
+}
+.results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3372524247"] {
+ color:#B97123
+}
+.results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_4220027924"] {
+ color:#3F6DB3
+}
+.results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_1671376347"] {
+ color:#ADAA47
+}
+.results.compact .resultset:not(.exchange) {
+ display:flex;
+ flex-wrap:wrap;
+ width:100%;
+ background-color:rgba(10,10,10,0.8)
+}
+.results.compact .resultset:not(.exchange) .row .sorted,
+.results.compact .resultset:not(.exchange) .search-bar .sorted {
+ padding-right:22px
+}
+.results.compact .resultset:not(.exchange) .row .sorted::after,
+.results.compact .resultset:not(.exchange) .search-bar .sorted::after {
+ width:15px;
+ height:15px;
+ background:none;
+ color:#e8dfe2
+}
+.results.compact .resultset:not(.exchange) .row .sorted.sorted-desc::after,
+.results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-desc::after {
+ content:'↓'
+}
+.results.compact .resultset:not(.exchange) .row .sorted.sorted-asc::after,
+.results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-asc::after {
+ content:'↑'
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional {
+ font-family:inherit;
+ font-size:0.9em;
+ margin:0;
+ position:absolute;
+ right:64px;
+ text-align:right;
+ top:18px;
+ background:none
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s {
+ display:block;
+ width:auto;
+ height:15px
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s span.colourAugmented::before,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s span.colourAugmented::before {
+ content:" " attr(title) ": ";
+ color:#7f7f7f
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ar"],
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ar"],
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ev"],
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ev"],
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="es"],
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="es"] {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.invisible,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.invisible {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s::after,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s::after {
+ right:-16px
+}
+.results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.sorted,
+.results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.sorted {
+ padding:0
+}
+.results.compact .resultset:not(.exchange) .row,
+.results.compact .resultset:not(.exchange) .search-bar {
+ width:100%;
+ flex-wrap:wrap;
+ border-bottom:1px solid #333;
+ max-width:920px;
+ margin:0 auto
+}
+.results.compact .resultset:not(.exchange) .row.exchange,
+.results.compact .resultset:not(.exchange) .exchange.search-bar {
+ width:100%;
+ flex-wrap:wrap
+}
+.results.compact .resultset:not(.exchange) .row.controls,
+.results.compact .resultset:not(.exchange) .controls.search-bar {
+ width:100%;
+ border-bottom:none
+}
+.results.compact .resultset:not(.exchange) .row .left,
+.results.compact .resultset:not(.exchange) .search-bar .left {
+ width:25%;
+ float:left
+}
+.results.compact .resultset:not(.exchange) .row .middle,
+.results.compact .resultset:not(.exchange) .search-bar .middle {
+ width:75%;
+ align-self:flex-start;
+ padding-right:64px;
+ padding-left:0;
+ float:left
+}
+.results.compact .resultset:not(.exchange) .row .right,
+.results.compact .resultset:not(.exchange) .search-bar .right {
+ width:100%;
+ padding-left:25%;
+ margin-top:5px;
+ align-self:flex-end
+}
+.results.compact .resultset:not(.exchange) .row .details,
+.results.compact .resultset:not(.exchange) .search-bar .details {
+ text-align:left;
+ padding:0 0px;
+ margin:0
+}
+.results.compact .resultset:not(.exchange) .row .details .price,
+.results.compact .resultset:not(.exchange) .search-bar .details .price {
+ font-family:inherit
+}
+.results.compact .resultset:not(.exchange) .row .details .price>span,
+.results.compact .resultset:not(.exchange) .search-bar .details .price>span {
+ float:left
+}
+.results.compact .resultset:not(.exchange) .row .details .price>span>span,
+.results.compact .resultset:not(.exchange) .search-bar .details .price>span>span {
+ font-family:inherit
+}
+.results.compact .resultset:not(.exchange) .row .details .price>span>span.price-label,
+.results.compact .resultset:not(.exchange) .search-bar .details .price>span>span.price-label {
+ text-transform:lowercase;
+ font-weight:bold;
+ color:#e8dfe2
+}
+.results.compact .resultset:not(.exchange) .row .details .price span.sorted,
+.results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted {
+ background:initial
+}
+.results.compact .resultset:not(.exchange) .row .details .price span.sorted::after,
+.results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted::after {
+ background:initial;
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .details .price span,
+.results.compact .resultset:not(.exchange) .search-bar .details .price span {
+ display:inline-block;
+ padding:0;
+ position:initial;
+ font-size:0.9em
+}
+.results.compact .resultset:not(.exchange) .row .details .price img,
+.results.compact .resultset:not(.exchange) .search-bar .details .price img {
+ width:18px
+}
+.results.compact .resultset:not(.exchange) .row .details .price .price-label.buyout-price,
+.results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.buyout-price,
+.results.compact .resultset:not(.exchange) .row .details .price .price-label.no-price,
+.results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.no-price {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .details .price .currency-text span,
+.results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text span {
+ vertical-align:baseline
+}
+.results.compact .resultset:not(.exchange) .row .details .price .currency-text.currency-image span,
+.results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text.currency-image span {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .details .price .currency-text::after,
+.results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text::after {
+ content:'\00a0';
+ display:inline-block
+}
+.results.compact .resultset:not(.exchange) .row .details .price br,
+.results.compact .resultset:not(.exchange) .search-bar .details .price br {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .details .info,
+.results.compact .resultset:not(.exchange) .search-bar .details .info {
+ margin:0;
+ padding-top:0;
+ padding-bottom:0;
+ position:absolute;
+ top:8px;
+ right:5px;
+ height:13px;
+ line-height:13px
+}
+.results.compact .resultset:not(.exchange) .row .details .info .profile-link,
+.results.compact .resultset:not(.exchange) .search-bar .details .info .profile-link {
+ display:none
+}
+.results.compact .resultset:not(.exchange) .row .details .btns,
+.results.compact .resultset:not(.exchange) .search-bar .details .btns {
+ clear:none;
+ padding:0
+}
+.results.compact .resultset:not(.exchange) .row .details .btns .btn,
+.results.compact .resultset:not(.exchange) .search-bar .details .btns .btn {
+ line-height:16px;
+ height:18px;
+ border-color:#444;
+ vertical-align:middle
+}
+.results.compact .resultset:not(.exchange) .row .details .btns .pull-left,
+.results.compact .resultset:not(.exchange) .search-bar .details .btns .pull-left {
+ padding:0
+}
+.results.compact .resultset:not(.exchange) .row .details .btns>span,
+.results.compact .resultset:not(.exchange) .search-bar .details .btns>span {
+ padding:0;
+ height:18px
+}
+.results.compact .resultset:not(.exchange) .row .details .status,
+.results.compact .resultset:not(.exchange) .search-bar .details .status {
+ height:18px
+}
+.results.compact .resultset:not(.exchange) .row .details .character-name,
+.results.compact .resultset:not(.exchange) .search-bar .details .character-name {
+ display:inline;
+ font-size:0.9em
+}
+.results.compact.two .row:not(.exchange):nth-child(even),
+.results.compact.two .search-bar:not(.exchange):nth-child(even) {
+ background:none
+}
+.results.compact.two .row:not(.exchange):nth-child(4n+3),
+.results.compact.two .search-bar:not(.exchange):nth-child(4n+3),
+.results.compact.two .row:not(.exchange):nth-child(4n),
+.results.compact.two .search-bar:not(.exchange):nth-child(4n) {
+ background-color:rgba(20,20,20,0.8)
+}
+.results.compact.two .resultset .row ,
+.results.compact.two .resultset .search-bar {
+ width:50%;
+ border-bottom:1px solid #333
+}
+.results.compact.two .resultset .row:not(.exchange):nth-child(even),
+.results.compact.two .resultset .search-bar:not(.exchange):nth-child(even) {
+ border-left:1px solid #333
+}

@@ -2,6 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="official_compact.css">
+<link rel="stylesheet" href="official_css.css">
 
 </head>
 <body>
@@ -17,7 +19,7 @@
 		</audio>
 
 	</label>
-	<label>Searches<input type='text' id='searches' value='602k0XsG,75jryRS5,JdvgBvsl' /></label>
+	<label>Searches<input type='text' id='searches' value='k3MDkQU5' /></label>
 	<label>Open Sockets<input type='text' value='0' id='socket-count' disabled /></label>
 	<label>Queue Size<input type='text' value='0' id='queue-count' disabled /></label>
 
@@ -73,15 +75,13 @@
 								</div>
 							</div>
 						</div>
+						<div class='template-field bold' tf='item.pseudoMods'></div>
+						<div class='template-field' tf='item.sockets'></div>
 						<div>
-							<span class='template-field' tf='item.sockets'> </span>
-						</div>
-						<span class='template-field' tf='item.properties.Quality'>
-							<span class='if-present'>Quality:</span>
-							<span class='data-target data-value'></span>
-						</span>
-
-						<div>
+							<div class='template-field' tf='item.properties.Quality'>
+								<span class='if-present'>Quality:</span>
+								<span class='data-target data-value'></span>
+							</div>
 							<span class='template-field' tf='item.properties.Map Tier'>
 								<span class='if-present'>Map Tier:</span>
 								<span class='data-target data-value'></span>
@@ -166,12 +166,18 @@
 					</div>
 				</div>
 			</div>
-
 			<span class='template-field' tf='whisper-button'></span>
 			<span class='template-field account-profile' tf='account-profile'>
-				<span class='if-present'>View Account:</span>
+				<span class='if-present'>View Account:
+					<span class='template-field' tf='listing.account.lastCharacterName'></span>
+					(
+				</span>
 				<span class='data-target'></span>
+				<span class='if-present'>
+					)
+				</span>
 			</span>
+			<div class='template-field' tf='itemKeyPanel'></div>			
 		</div>
 	</div>
 </body>

@@ -1,18 +1,7 @@
-@font-face {
- font-family:'FontinSmallCaps';
- src:url('font/fontin-smallcaps-webfont.eot');
- src:local("☺"),
- url('font/fontin-smallcaps-webfont.woff') format("woff"),
- url('font/fontin-smallcaps-webfont.ttf') format("truetype");
- font-weight:normal;
- font-style:normal
-}
-
 body {
 	font-size: 16px;
 	vertical-align: middle;
 	color: #7F7F70;
-	font-family: 'FontinSmallCaps', Verdana,Arial,Helvetica,sans-serif;
 }
 
 .hidden {
@@ -23,11 +12,21 @@ body {
 	background-color: red;
 }
 
-img {
-	margin: .25rem;
-	margin-left: 0rem;
-	height: 3rem;
+div[onclick]
+{
+	cursor: pointer;
 }
+
+span[onclick]
+{
+	cursor: pointer;
+}
+
+img[onclick]
+{
+	cursor: pointer;
+}
+
 
 input, textarea, select {
 	box-sizing: border-box;
@@ -39,6 +38,7 @@ input, textarea, select {
 
 .us-table {
 	display: table;
+	width: 100%;
 }
 
 .us-inline-table {
@@ -199,6 +199,11 @@ ul li
 {
 	max-width: 350px; 
 }
+
+li:hover
+{
+	background-color: #2d3139;
+}
 .crafted-mods {
 	color: #99B4FF;
 	text-shadow: 1px 1px 1px rgba(0,0,0,1);
@@ -300,7 +305,7 @@ ul li
 	text-align: center;
 	color: #ffffff;
 	font-weight: bold;
-	border: 1px solid rgba(0,0,0,.5);
+	border: 1px solid #000000;
 }
 
 .socket-W
@@ -312,7 +317,7 @@ ul li
 	width: 1rem;
 	text-align: center;
 	font-weight: bold;
-	border: 1px solid rgba(0,0,0,.5);
+	border: 1px solid #000000;
 	text-shadow: none;
 	color: #1C1E23;
 }
@@ -358,4 +363,16 @@ a:visited
 .searchpart a:visited
 {
 	color: #b7b7ff;
+}
+
+.key-header
+{
+	border: 1px solid black;
+	padding: .25rem;
+}
+.key-value
+{
+	background-color: #2d3139;
+	margin-left: 1rem;
+	padding: .25rem;
 }
