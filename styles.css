@@ -376,3 +376,19 @@ a:visited
 	margin-left: 1rem;
 	padding: .25rem;
 }
+
+
+
+.results
+{
+	display: inline-block;
+}
+
+.itemPopupContainer 
+{    	text-align: center;
+	display: inline-block;
+	width: 40%;
+	horizontal-align: center;
+	position: relative;
+}
+

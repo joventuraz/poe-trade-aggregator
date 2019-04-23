@@ -9,6 +9,7 @@ function ItemRequest(searchpart, listings)
 	this.listings = listings;
 	this.searchpart = searchpart;
 }
+
 function RequestManager()
 {
 	this.itemRequests = [];
@@ -54,17 +55,20 @@ function RequestManager()
 		callAjax(itemUrl, addItem, searchpart);
 		var soundSelect = document.getElementById('notification-sound');
 		var soundId = soundSelect.value;
+		setCookie('notification-sound', soundId, 91);
 		if(soundId != null && soundId.length > 0)
 		{
 			document.getElementById(soundId).play();
 		}
 	};
 }
+
 var requestManager = new RequestManager();
 function getItems()
 {
 	requestManager.getNextItem();
 }
+
 setInterval(getItems, 500);
 function startSockets() 
 {	
@@ -73,8 +77,10 @@ function startSockets()
 	var socketCounterBox = document.getElementById('socket-count');
 	socketCounterBox.classList.add('active');
 	var league = document.getElementById('league').value;
+	setCookie('league', league, 91);
 	var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 	var searchesString = document.getElementById('searches').value;
+	setCookie('searches', searchesString, 91);
 	var searches = searchesString.split(',');
 	
 	for(var i = 0; i < searches.length; i++)
@@ -151,7 +157,6 @@ function stopSockets()
 } 
 
 var frameType = ["Normal","Magic","Rare","Unique","Gem","Currency","DivinationCard","Quest","Prophecy","Relic"];
-
 function addItem(data, searchpart) 
 {
 	var json = JSON.parse(data);
@@ -462,12 +467,12 @@ function addItem(data, searchpart)
 				}
 			}
 		}
-
-		new_display = display_item(result.item)
-		display.insertBefore(new_display, lastItem);
-		display.insertBefore(render_item(result.item), lastItem);
+		new_row = document.createElement('div');
+		new_row.appendChild(render_item(result.item))
+		new_row.appendChild(display_item(result.item))
+		display.insertBefore(new_row, lastItem);
 		display.insertBefore(newNode, lastItem);
-		lastItem = new_display;
+		lastItem = new_row;
 	}
 } 
 
@@ -657,4 +662,56 @@ function showHide()
 	}
 }
 
+function setCookie(cname, cvalue, exdays) 
+{
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
+function getCookie(cname) 
+{
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) 
+	{
+		var c = ca[i];
+		while (c.charAt(0) == ' ') 
+		{
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) 
+		{
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
+
+function checkCookie() 
+{
+	console.log('checkCookie');
+	var searchslist = getCookie('searches');
+	console.log(searchslist);
+	if (searchslist != "") 
+	{
+		document.getElementById('searches').value = searchslist;
+	} 
+	var league = getCookie('league');
+	console.log(league);
+	if (league != "") 
+	{
+		document.getElementById('league').value = league;
+	}
+	var soundId = getCookie('notification-sound');
+	console.log(soundId);
+	if (soundId != "") 
+	{
+		document.getElementById('notification-sound').value = soundId;
+	} 
+} 
+
+checkCookie();

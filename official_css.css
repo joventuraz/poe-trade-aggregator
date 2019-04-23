@@ -1039,3 +1039,47 @@ results .row .left .newItemContainer, .results #trade .search-bar .left .newItem
 .results .newItemContainer .iconContainer .icon img {
     background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 33%, transparent 70%);
 }
+
+.results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left {
+
+    text-align: center;
+
+}
+
+
+
+
+//For left and right mod text
+element {
+
+}
+.newItemPopup .lc.pr, .results .row .middle .itemPopupAdditional .lc.pr, .results #trade .search-bar .middle .itemPopupAdditional .lc.pr, #trade .results .search-bar .middle .itemPopupAdditional .lc.pr {
+
+    color: #ec7676;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+}
+.newItemPopup .lc.l, .results .row .middle .itemPopupAdditional .lc.l, .results #trade .search-bar .middle .itemPopupAdditional .lc.l, #trade .results .search-bar .middle .itemPopupAdditional .lc.l {
+
+    left: 0px;
+
+}
+.newItemPopup .lc.l, .results .row .middle .itemPopupAdditional .lc.l, .results #trade .search-bar .middle .itemPopupAdditional .lc.l, #trade .results .search-bar .middle .itemPopupAdditional .lc.l, .newItemPopup .lc.r, .results .row .middle .itemPopupAdditional .lc.r, .results #trade .search-bar .middle .itemPopupAdditional .lc.r, #trade .results .search-bar .middle .itemPopupAdditional .lc.r {
+
+    position: absolute;
+
+}
+.newItemPopup .lc, .results .row .middle .itemPopupAdditional .lc, .results #trade .search-bar .middle .itemPopupAdditional .lc, #trade .results .search-bar .middle .itemPopupAdditional .lc {
+
+    padding: 0px 6.08519px;
+
+}
+.lc, .descrText span, .secDescriptionText span {
+
+    display: inline-block;
+    padding: 0px 10px;
+
+}
+

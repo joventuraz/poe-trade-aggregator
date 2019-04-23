@@ -100,11 +100,24 @@ function create_header(item)
 function parse_mods_extended(mods_extended, mod_class, box_content, add_separator = true, veiled_mods = false){
 
 	console.log(mods_extended);
-
+	
 	mods_extended.forEach(function(element) {
-		box_content.appendChild(create_mod(mod_class, element.displayText, "","","","",veiled_mod = veiled_mods))
+		mods = element.mods
+
+		affix_string = ""
+		var mod_index = 0;
+		for (mod_index = 0; mod_index < mods.length - 2; mod_index ++){
+			affix_string += mods[mod_index].modTier + " + "
+		}
+		if (mods.length > 0){
+		affix_string += mods[mod_index].modTier	
+		}
+		
+
+
+		box_content.appendChild(create_mod(mod_class, element.displayText, affix_string,"","","",veiled_mod = veiled_mods))
 	});
-	if (add_separator && mod_list.length > 0){
+	if (add_separator && mods_extended.length > 0){
 		var separator = document.createElement('div');
 		separator.className = "separator";
 		box_content.appendChild(separator);
@@ -426,13 +439,13 @@ function display_item(item)
 	parse_properties(item, content_div);
 	parse_requirements(item, content_div);
 
-	parse_mods(item.enchantMods, "enchantMod", content_div);
-	parse_mods(item.implicitMods, "implicitMod", content_div);
-	parse_mods(item.fracturedMods, "fracturedMod", content_div, false);
-//	parse_mods(item.explicitMods, "explicitMod", content_div, false);
+	
+	parse_mods_extended(getMods(item, "enchanted"), "enchantMod", content_div);
+	parse_mods_extended(getMods(item, "implicit"), "implicitMod", content_div);
+	parse_mods_extended(getMods(item, "fractured"), "fracturedMod", content_div, false);
 	parse_mods_extended(getMods(item, "explicit"), "explicitMod", content_div, false);
-	parse_mods(item.craftedMods, "craftedMod", content_div, false);
-	parse_mods(item.veiledMods, "veiledMod", content_div, false, true);
+	parse_mods_extended(getMods(item, "crafted"), "craftedMod", content_div, false);
+	parse_mods_extended(getMods(item, "veiled"), "veiledMod", content_div, false, true);
 
 
 	//if vaal gem then add the remaining information
