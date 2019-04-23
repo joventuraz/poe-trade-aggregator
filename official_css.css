@@ -8,6 +8,27 @@
  font-style:normal
 }
 
+
+.explicitMod:hover .lc>.d,
+.explicitMod.hover .lc>.d,
+.implicitMod:hover .lc>.d,
+.implicitMod.hover .lc>.d,
+.enchantMod:hover .lc>.d,
+.enchantMod.hover .lc>.d,
+.fracturedMod:hover .lc>.d,
+.fracturedMod.hover .lc>.d,
+.utilityMod:hover .lc>.d,
+.utilityMod.hover .lc>.d,
+.craftedMod:hover .lc>.d,
+.craftedMod.hover .lc>.d,
+.veiledMod:hover .lc>.d,
+.veiledMod.hover .lc>.d,
+.pseudoMod:hover .lc>.d,
+.pseudoMod.hover .lc>.d {
+ display:inline-block
+}
+
+
 .newItemPopup, .results .row .middle .itemPopupAdditional, .results #trade .search-bar .middle .itemPopupAdditional, #trade .results .search-bar .middle .itemPopupAdditional {
     background: rgba(0,0,0,0.8);
     color: #7f7f7f;
@@ -1053,14 +1074,26 @@ results .row .left .newItemContainer, .results #trade .search-bar .left .newItem
 element {
 
 }
-.newItemPopup .lc.pr, .results .row .middle .itemPopupAdditional .lc.pr, .results #trade .search-bar .middle .itemPopupAdditional .lc.pr, #trade .results .search-bar .middle .itemPopupAdditional .lc.pr {
 
-    color: #ec7676;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-
+.newItemPopup .lc.pr,
+.results .row .middle .itemPopupAdditional .lc.pr,
+.results #trade .search-bar .middle .itemPopupAdditional .lc.pr,
+#trade .results .search-bar .middle .itemPopupAdditional .lc.pr {
+ color:#ec7676;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ user-select:none
 }
+.newItemPopup .lc.su,
+.results .row .middle .itemPopupAdditional .lc.su,
+.results #trade .search-bar .middle .itemPopupAdditional .lc.su,
+#trade .results .search-bar .middle .itemPopupAdditional .lc.su {
+ color:#7aaff1;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ user-select:none
+}
+
 .newItemPopup .lc.l, .results .row .middle .itemPopupAdditional .lc.l, .results #trade .search-bar .middle .itemPopupAdditional .lc.l, #trade .results .search-bar .middle .itemPopupAdditional .lc.l {
 
     left: 0px;
@@ -1082,4 +1115,16 @@ element {
     padding: 0px 10px;
 
 }
+
+.newItemPopup .lc.r, .results .row .middle .itemPopupAdditional .lc.r, .results #trade .search-bar .middle .itemPopupAdditional .lc.r, #trade .results .search-bar .middle .itemPopupAdditional .lc.r {
+    right: 0px;
+}
+
+/*.newItemPopup .lc .d, .results .row .middle .itemPopupAdditional .lc .d, .results #trade .search-bar .middle .itemPopupAdditional .lc .d, #trade .results .search-bar .middle .itemPopupAdditional .lc .d {
+    display: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}*/
+
 

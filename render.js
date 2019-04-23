@@ -99,23 +99,30 @@ function create_header(item)
 
 function parse_mods_extended(mods_extended, mod_class, box_content, add_separator = true, veiled_mods = false){
 
-	console.log(mods_extended);
 	
 	mods_extended.forEach(function(element) {
 		mods = element.mods
 
-		affix_string = ""
+		tier_strings = []
+		range_strings = []
+		name_strings = []
+		affix_classes = []
 		var mod_index = 0;
-		for (mod_index = 0; mod_index < mods.length - 2; mod_index ++){
-			affix_string += mods[mod_index].modTier + " + "
-		}
-		if (mods.length > 0){
-		affix_string += mods[mod_index].modTier	
+		for (mod_index = 0; mod_index < mods.length; mod_index ++){
+			tier_strings.push(mods[mod_index].modTier)
+			range_strings.push(mods[mod_index].modRangeString)
+			name_strings.push(mods[mod_index].modName)
+
+			if( mods[mod_index].modTier[0] == "P" && !affix_classes.includes("pr")){
+				affix_classes.push("pr");
+			}
+			else if( mods[mod_index].modTier[0] == "S" && !affix_classes.includes("su")){
+				affix_classes.push("su");
+			}
 		}
 		
 
-
-		box_content.appendChild(create_mod(mod_class, element.displayText, affix_string,"","","",veiled_mod = veiled_mods))
+		box_content.appendChild(create_mod(mod_class, element.displayText, tier_strings.join(" + "),range_strings.join(" + "),"", 	name_strings.join(" + "), affix_classes.join(" "), veiled_mod = veiled_mods))
 	});
 	if (add_separator && mods_extended.length > 0){
 		var separator = document.createElement('div');
@@ -159,7 +166,7 @@ function parse_mods_extended(mods_extended, mod_class, box_content, add_separato
 
 
 //Takes in a mod class, and 5 text fields, one for the main text, one for the auxilliary left and right text, and one for the hover on left and right
-function create_mod(mod_class,text, left_text = "", left_hover = "", right_text = "", right_hover = "", veiled_mod = false)
+function create_mod(mod_class,text, left_text = "", left_hover = "", right_text = "", right_hover = "", affix_classes = "", veiled_mod = false)
 {
 	left_span = document.createElement('span');
 	right_span = document.createElement('span');
@@ -168,8 +175,8 @@ function create_mod(mod_class,text, left_text = "", left_hover = "", right_text 
 	left_hover_span = document.createElement('span');
 	right_hover_span = document.createElement('span');
 
-	left_span.className = "lc l pr";
-	right_span.className = "lc r pr";
+	left_span.className = "lc l " + affix_classes;
+	right_span.className = "lc r " + affix_classes;
 	left_hover_span.className = "d";
 	right_hover_span.className = "d";
 	
