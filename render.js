@@ -14,11 +14,31 @@ function create_text_span(class_name, text){
 
 
 
-function vaal_gem_info(item)
+function append_vaal_gem_info(item, content_div)
 {
+	var separator = document.createElement('div');
+	separator.className = "separator";
+	content_div.appendChild(separator);
+
+	vaal_header = document.createElement('div');
+	vaal_header.className = "vaalHeader";
+
+	vaal_header_type_line = document.createElement('div');
+	vaal_header_type_line.className = "itemName typeLine"
+	
+	vaal_header_type_line.appendChild(create_text_span("lc", item.typeLine))	
+	vaal_header.appendChild(vaal_header_type_line)
+
+	content_div.appendChild(vaal_header)
+	
+	var separator = document.createElement('div');
+	separator.className = "separator";
+	content_div.appendChild(separator);
 
 
+	parse_properties(item.vaal, content_div)
 
+	parse_mods(item.vaal.explicitMods, "explicitMod", content_div, false);
 
 }
 
@@ -61,6 +81,67 @@ function create_header(item)
 	
 	return item_header
 }
+
+
+//RETOOLING MODS FOR EXTENDED
+
+
+
+
+
+
+
+
+
+
+
+//Takes in a potential mod list, mod_class, and box_content to append to
+
+function parse_mods_extended(mods_extended, mod_class, box_content, add_separator = true, veiled_mods = false){
+
+	console.log(mods_extended);
+
+	mods_extended.forEach(function(element) {
+		box_content.appendChild(create_mod(mod_class, element.displayText, "","","","",veiled_mod = veiled_mods))
+	});
+	if (add_separator && mod_list.length > 0){
+		var separator = document.createElement('div');
+		separator.className = "separator";
+		box_content.appendChild(separator);
+		}
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
 
 
 
@@ -112,7 +193,7 @@ function create_mod(mod_class,text, left_text = "", left_hover = "", right_text 
 
 //Takes in a potential mod list, mod_class, and box_content to append to
 function parse_mods(potential_mod_list, mod_class, box_content, add_separator = true, veiled_mods = false){
-
+	
 	if (typeof potential_mod_list != 'undefined')
 	{
 		potential_mod_list.forEach(function(element) {
@@ -348,7 +429,8 @@ function display_item(item)
 	parse_mods(item.enchantMods, "enchantMod", content_div);
 	parse_mods(item.implicitMods, "implicitMod", content_div);
 	parse_mods(item.fracturedMods, "fracturedMod", content_div, false);
-	parse_mods(item.explicitMods, "explicitMod", content_div, false);
+//	parse_mods(item.explicitMods, "explicitMod", content_div, false);
+	parse_mods_extended(getMods(item, "explicit"), "explicitMod", content_div, false);
 	parse_mods(item.craftedMods, "craftedMod", content_div, false);
 	parse_mods(item.veiledMods, "veiledMod", content_div, false, true);
 
@@ -356,7 +438,7 @@ function display_item(item)
 	//if vaal gem then add the remaining information
 	if (typeof item.vaal != 'undefined')
 	{
-		content_div.appendChild(vaal_gem_info(item))
+		append_vaal_gem_info(item, content_div)
 	}
 
 	//if prophecy then add the prophecyText

@@ -122,6 +122,14 @@
  color:#4ae63a
 }
 
+.newItemPopup .vaalHeader, .results .row .middle .itemPopupAdditional .vaalHeader, .results #trade .search-bar .middle .itemPopupAdditional .vaalHeader, #trade .results .search-bar .middle .itemPopupAdditional .vaalHeader {
+
+    background: url('image/item/popup/vaal-title.png') no-repeat center/contain;
+    height: 34px;
+    font-size: 19px;
+    line-height: 1em;
+}
+
 .newItemPopup .secDescrText,
 .results .row .middle .itemPopupAdditional .secDescrText,
 .results #trade .search-bar .middle .itemPopupAdditional .secDescrText,

@@ -161,7 +161,7 @@ function addItem(data, searchpart)
 	for(var resultIndex = 0; resultIndex < results.length; resultIndex++)
 	{	
 		var result = results[resultIndex];
-		console.log(result);
+//		console.log(result);
 		var overrides = [];
 		var icon = document.createElement("img");
 		icon.src = result.item.icon;
@@ -248,7 +248,6 @@ function addItem(data, searchpart)
 				keyHeader.showHideTarget = keyValue;
 			}
 			overrides['itemKeyPanel'] = itemKeyPanel;
-			console.log();
 			overrides['item.sockets'] = '';
 			if(result.item.sockets)
 			{
@@ -628,8 +627,10 @@ function getMods(item, modType)
 											var modMin = modMagnitudes[v].min;
 											var modMax = modMagnitudes[v].max;
 											var modRange = '('+ modMin + '-' + modMax + ')';
-											var itemMod = new ItemMod(modName, modTier, modRange);
-											hashToMod[modHashKey].mods.push(itemMod);
+											if( modMin != 0 || modMax != 0){
+												var itemMod = new ItemMod(modName, modTier, modRange);
+												hashToMod[modHashKey].mods.push(itemMod);
+											}
 										}
 									}
 								}
@@ -640,7 +641,6 @@ function getMods(item, modType)
 			}
 		}			
 	}
-	console.log(fullMods);
 	return fullMods;
 }
 
