@@ -53,12 +53,12 @@ function RequestManager()
 			var getItemUrl = 'https://www.pathofexile.com/api/trade/fetch/';	
 			var itemUrl = getItemUrl + itemRequest.listings;
 			itemUrl += '?query=' + itemRequest.searchpart;
-			this.processItem(itemUrl, itemRequest.searchpart, itemRequest.sound, itemRequest.volume);			
+			this.processItem(itemUrl, itemRequest.searchpart, itemRequest.name, itemRequest.sound, itemRequest.volume);			
 		}
 	};
-	this.processItem = function (itemUrl, searchpart, sound, volume)
+	this.processItem = function (itemUrl, searchpart, name, sound, volume)
 	{
-		callAjax(itemUrl, addItem, searchpart);
+		callAjax(itemUrl, addItem, searchpart, name);
 		soundHandler(sound, volume);
 	};
 }
@@ -119,10 +119,14 @@ function startSockets()
 			if (splitSeach.length >3 )
 			{
 				searchSocket.searchVolume = parseFloat(splitSeach[3]);
+				if (searchSocket.searchVolume > 1 | searchSocket.searchVolume < 0)
+				{
+					searchSocket.searchVolume = 0.5;
+				}
 			}
 			else
 			{
-				searchSocket.searchVolume = 1;
+				searchSocket.searchVolume = 0.5;
 			}
 			sockets.push(searchSocket);
 			searchSocket.onopen = function(event)
@@ -154,14 +158,14 @@ function startSockets()
 	}
 } 
 
-function callAjax(url, callback, param){
+function callAjax(url, callback, param1, parm2){
     var xmlhttp;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function()
     {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
         {
-            callback(xmlhttp.responseText, param);
+            callback(xmlhttp.responseText, param1, parm2);
         }
     }
     xmlhttp.open("GET", url, true);
@@ -194,7 +198,7 @@ function stopSockets()
 } 
 
 var frameType = ["Normal","Magic","Rare","Unique","Gem","Currency","DivinationCard","Quest","Prophecy","Relic"];
-function addItem(data, searchpart) 
+function addItem(data, searchpart, searchName) 
 {
 	var json = JSON.parse(data);
 	var results = json.result;
@@ -204,7 +208,7 @@ function addItem(data, searchpart)
 	{	
 		var result = results[resultIndex];
 		//dView(result, searchpart, display);
-		nView(result, searchpart, display);
+		nView(result, searchpart, searchName, display);
 	}
 } 
 
@@ -391,7 +395,7 @@ function toggleNDisplay(){
 
 }
 
-function nView(result, searchpart, display)
+function nView(result, searchpart, searchName, display)
 {
 	var new_row = document.createElement('div');
 	new_row.className = 'row';
@@ -399,7 +403,7 @@ function nView(result, searchpart, display)
 	new_row.appendChild(display_item(result.item))
 
 	if (result.listing.price){
-	new_row.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
+		new_row.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
 	}
 	new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
 	new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
@@ -418,9 +422,14 @@ function nView(result, searchpart, display)
 		var searchLink = document.createElement('a');
 		var league = document.getElementById('league').value;
 		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
-		searchLink.appendChild(document.createTextNode(searchpart));
+		searchLink.appendChild(document.createTextNode(', ' + searchpart));
 		searchLink.target = '_blank';
 		new_row.appendChild(searchLink);
+	}
+
+	if(searchName != null)
+	{
+		new_row.appendChild(document.createTextNode(', ' + searchName));
 	}
 
 	display.insertBefore(new_row, lastItem);
