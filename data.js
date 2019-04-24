@@ -56,12 +56,7 @@ function RequestManager()
 	this.processItem = function (itemUrl, searchpart)
 	{
 		callAjax(itemUrl, addItem, searchpart);
-		var soundSelect = document.getElementById('notification-sound');
-		var soundId = soundSelect.value;
-		if(soundId != null && soundId.length > 0)
-		{
-			document.getElementById(soundId).play();
-		}
+		soundHandler(document.getElementById('notification-sound').value);
 	};
 }
 
