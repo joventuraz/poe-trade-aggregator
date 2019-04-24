@@ -40,9 +40,14 @@ function getMods(item, modType)
 					if(hashes[modType])
 					{
 						for(var i = 0; i < hashes[modType].length; i++)
-						{		
+						{	
+							try{
 							fullMods[i].compositeModKey = hashes[modType][i][0];
-							hashToMod[fullMods[i].compositeModKey] = fullMods[i];
+							hashToMod[fullMods[i].compositeModKey] = fullMods[i];}
+							catch{
+								console.log("unknown extended error")
+								console.log(item)
+							}
 							if (modType == "veiled"){
 								veiled_hashes.push(hashes[modType][i][0]);
 							}
@@ -89,7 +94,7 @@ function getMods(item, modType)
 										            var itemMod = new ItemMod(modName, modTier, modRange);
 												try{
 										            hashToMod[modHashKey].mods.push(itemMod);}
-												catch(err){ console.log();}
+												catch(err){ console.log("no mod for hash:"); console.log(item);}
 										            keyToCompositeMods[modHashKey] = itemMod;
 										        }
 										        else
@@ -682,7 +687,11 @@ function display_item(item)
 	content_div.innerHTML = poe_markup(content_div.innerHTML);
 	box_container.appendChild(box_content);
 	
-	return box_container
+
+	var results_wrapper = document.createElement('div');
+	results_wrapper.className = "results compact two"
+	results_wrapper.appendChild(box_container)
+	return results_wrapper
 
 
 }
