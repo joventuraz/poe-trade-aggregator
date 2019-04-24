@@ -319,32 +319,43 @@ function getMods(item, modType)
 								if(moreModInfo.magnitudes)
 								{
 									var modMagnitudes = moreModInfo.magnitudes;
-									if(modMagnitudes != null && modMagnitudes.length > 0)
-									{
+									    if(modMagnitudes != null && modMagnitudes.length > 0)
+									    {
 										var keyToCompositeMods = [];
 										for(var v = 0; v < modMagnitudes.length; v++)
-										{	
-											var modHashKey = modMagnitudes[v].hash;
-											var modMin = modMagnitudes[v].min;
-											var modMax = modMagnitudes[v].max;
-											var modRange = '';
-											if(modMin != modMax)
-											{
-												modRange = '('+ modMin + '-' + modMax + ')';
-												var itemMod = keyToCompositeMods[modHashKey];
-												if(itemMod == null)
-												{
-													var itemMod = new ItemMod(modName, modTier, modRange);
-													hashToMod[modHashKey].mods.push(itemMod);
-													keyToCompositeMods[modHashKey] = itemMod;
-												}
-												else
-												{
-													itemMod.modRangeString += ' - ' + modRange;
-												}
-											}
+										{  
+										    var modHashKey = modMagnitudes[v].hash;
+										    var modMin = modMagnitudes[v].min;
+										    var modMax = modMagnitudes[v].max;
+										    var modRange = '';
+										    if(modMin != modMax)
+										    {
+										        modRange = '('+ modMin + '-' + modMax + ')';
+										       
+										    }
+					 
+										    if(modMin != 0 || modMax != 0)
+										    {
+										        var itemMod = keyToCompositeMods[modHashKey];
+										       
+										        if(itemMod == null)
+										        {
+										            var itemMod = new ItemMod(modName, modTier, modRange);
+												try{
+										            hashToMod[modHashKey].mods.push(itemMod);}
+												catch(err){ console.log();}
+										            keyToCompositeMods[modHashKey] = itemMod;
+										        }
+										        else
+										        {
+										            if(modRange != '')
+										            {
+										                itemMod.modRangeString += ' - ' + modRange;
+										            }
+										        }  
+										    }                                      
 										}
-									}
+									    }
 									else if (modType == "veiled")
 									{
 										var modHashKey = veiled_hashes[i]
@@ -362,8 +373,6 @@ function getMods(item, modType)
 	}
 	return fullMods;
 }
-
-
 
 function buildCopyButton(buttonText, copyValue)
 {
