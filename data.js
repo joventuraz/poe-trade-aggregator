@@ -3,13 +3,15 @@ var lastItem = null;
 var sockets = [];
 var openSockets = 0;
 var socketsToOpen = 0;
+var maxItemsDisplayed = 300;
+var allDisplayedItems = [];
+var hasActiveSockets = false;
 
 function ItemRequest(searchpart, listings)
 {
 	this.listings = listings;
 	this.searchpart = searchpart;
 }
-
 function RequestManager()
 {
 	this.itemRequests = [];
@@ -55,68 +57,70 @@ function RequestManager()
 		callAjax(itemUrl, addItem, searchpart);
 		var soundSelect = document.getElementById('notification-sound');
 		var soundId = soundSelect.value;
-		setCookie('notification-sound', soundId, 91);
 		if(soundId != null && soundId.length > 0)
 		{
 			document.getElementById(soundId).play();
 		}
 	};
 }
-
 var requestManager = new RequestManager();
 function getItems()
 {
 	requestManager.getNextItem();
 }
-
 setInterval(getItems, 500);
 function startSockets() 
 {	
-	stopSockets();
-	
-	var socketCounterBox = document.getElementById('socket-count');
-	socketCounterBox.classList.add('active');
-	var league = document.getElementById('league').value;
-	setCookie('league', league, 91);
-	var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
-	var searchesString = document.getElementById('searches').value;
-	setCookie('searches', searchesString, 91);
-	var searches = searchesString.split(',');
-	
-	for(var i = 0; i < searches.length; i++)
+	if(hasActiveSockets)
 	{
-		socketsToOpen = searches.length;
-		var search = searches[i].trim();
-		var tmp = socketUrl + search;
-		var searchSocket = new WebSocket(tmp);
-		searchSocket.searchpart = search;
-		sockets.push(searchSocket);
-		searchSocket.onopen = function(event)
+		return false;
+	}
+	else
+	{
+		hasActiveSockets = true;
+		var socketCounterBox = document.getElementById('socket-count');
+		socketCounterBox.classList.add('active');
+		
+		var league = document.getElementById('league').value;
+		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
+		var searchesString = document.getElementById('searches').value;
+		var searches = searchesString.split(',');
+		
+		for(var i = 0; i < searches.length; i++)
 		{
-			openSockets++;
-			document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
-		};
-		searchSocket.onerror = function(event)
-		{
-			var errorMsg = this.searchpart + ' has experienced an error.';
-			alert(errorMsg);
-		};
-		searchSocket.onclose = function(event)
-		{
-			openSockets--;
-			if(openSockets < 1)
+			socketsToOpen = searches.length;
+			var search = searches[i].trim();
+			var tmp = socketUrl + search;
+			var searchSocket = new WebSocket(tmp);
+			searchSocket.searchpart = search;
+			sockets.push(searchSocket);
+			searchSocket.onopen = function(event)
 			{
-				document.getElementById('socket-count').value;
+				openSockets++;
+				document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
+			};
+			searchSocket.onerror = function(event)
+			{
+				var errorMsg = this.searchpart + ' has experienced an error.';
+				alert(errorMsg);
+			};
+			searchSocket.onclose = function(event)
+			{
+				openSockets--;
+				if(openSockets < 1)
+				{
+					document.getElementById('socket-count').value;
+				}
+				document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
+			};
+			searchSocket.onmessage = function (event) 
+			{
+				var json = JSON.parse(event.data);
+				var itemRequest = new ItemRequest(this.searchpart,json.new);
+				requestManager.addRequest(itemRequest);
 			}
-			document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
-		};
-		searchSocket.onmessage = function (event) 
-		{
-			var json = JSON.parse(event.data);
-			var itemRequest = new ItemRequest(this.searchpart,json.new);
-			requestManager.addRequest(itemRequest);
-		}
-	}	
+		}	
+	}
 } 
 
 function callAjax(url, callback, param){
@@ -137,6 +141,7 @@ function clearDisplay()
 {
 	var display = document.getElementById('display-window');
 	display.innerHTML = '';
+	allDisplayedItems = [];
 	lastItem = null;
 }
 
@@ -154,9 +159,11 @@ function stopSockets()
 	document.getElementById('queue-count').value = requestManager.itemRequests.length;
 	var socketCounterBox = document.getElementById('socket-count');
 	socketCounterBox.classList.remove('active');
+	hasActiveSockets = false;
 } 
 
 var frameType = ["Normal","Magic","Rare","Unique","Gem","Currency","DivinationCard","Quest","Prophecy","Relic"];
+
 function addItem(data, searchpart) 
 {
 	var json = JSON.parse(data);
@@ -166,267 +173,6 @@ function addItem(data, searchpart)
 	for(var resultIndex = 0; resultIndex < results.length; resultIndex++)
 	{	
 		var result = results[resultIndex];
-//		console.log(result);
-/*		var overrides = [];
-		var icon = document.createElement("img");
-		icon.src = result.item.icon;
-		overrides['icon'] = icon;
-		
-		
-
-		overrides['item.corrupted'] = '';
-		overrides['item.mirrored'] = '';
-		overrides['item.stacksize'] = '';
-		
-		
-		if(result.item)
-		{
-			var resultItem = result.item;
-			var itemKeys = Object.keys(resultItem);
-			var itemKeyPanel = document.createElement('div');
-			var keyTitle = document.createElement('div');
-			keyTitle.append(document.createTextNode('keys'));
-			itemKeyPanel.append(keyTitle);
-			keyTitle.onclick = showHide;
-			var itemKeyBody = document.createElement('div');
-
-			itemKeyBody.classList.add('hidden');
-			itemKeyPanel.append(itemKeyBody);
-			keyTitle.showHideTarget = itemKeyBody;
-			var showHideTarget = showHideTarget;
-			for (var keyIndex = 0; keyIndex < itemKeys.length; keyIndex++)
-			{
-				var ikey = itemKeys[keyIndex];
-				var keyHeader = document.createElement('div');
-				keyHeader.classList.add('key-header');
-				keyHeader.append(document.createTextNode(ikey));
-				keyHeader.onclick = showHide;
-				itemKeyBody.append(keyHeader);
-
-				var keyValue = document.createElement('div');
-				keyValue.classList.add('key-value');
-				keyValue.classList.add('hidden');
-				keyValue.append(document.createTextNode(JSON.stringify(resultItem[ikey])));
-				itemKeyBody.append(keyValue);
-				keyHeader.showHideTarget = keyValue;
-			}
-			overrides['itemKeyPanel'] = itemKeyPanel;
-			overrides['item.sockets'] = '';
-			if(result.item.sockets)
-			{
-				var itemSockets = result.item.sockets;
-				var socketPanel = document.createElement('span');
-				socketPanel.classList.add('socket-panel');		
-				
-				var socketInfo = document.createElement('span');
-				socketInfo.append(document.createTextNode('( '));
-				
-				var totalSockets = document.createElement('span');
-				totalSockets.append(document.createTextNode(itemSockets.length + 'S'));
-				socketInfo.append(totalSockets);
-				
-				socketInfo.append(document.createTextNode(' / '));
-				socketInfo.classList.add('data-value');
-				socketPanel.append(socketInfo);
-				
-				var currentSocketGroup = 0;
-				var startSocketGroup = document.createElement('span');
-				startSocketGroup.append(document.createTextNode('{'));
-
-				var socketLink = document.createElement('span');
-				socketLink.classList.add('socket-link');
-				socketLink.append(document.createTextNode('='));
-				
-				var endSocketGroup = document.createElement('span');
-				endSocketGroup.append(document.createTextNode('}'));
-				socketPanel.append(startSocketGroup.cloneNode(true));
-				var isFirstInGroup = true;
-				var maxLinks = 1;
-				var linkCounter = 1;
-				for(var s = 0; s < itemSockets.length; s++)
-				{
-					var itemSocket = itemSockets[s];
-					var itemSocketGroup = itemSocket.group;
-
-					if(itemSocketGroup != currentSocketGroup)
-					{
-						socketPanel.append(endSocketGroup.cloneNode(true));
-						socketPanel.append(startSocketGroup.cloneNode(true));
-						currentSocketGroup = itemSocketGroup;
-						isFirstInGroup = true;
-						linkCounter = 1;
-					}
-					if(linkCounter > maxLinks)
-					{
-						maxLinks = linkCounter;
-					}
-					
-					if(isFirstInGroup)
-					{
-						isFirstInGroup = false;
-					}
-					else
-					{
-						socketPanel.append(socketLink.cloneNode(true));					
-					}
-					var itemSocketColor = itemSocket.sColour;
-					var socketNode = document.createElement('span');
-					var socketCssClass = 'socket-' + itemSocketColor;
-					socketNode.classList.add(socketCssClass);
-					socketNode.append(document.createTextNode(itemSocketColor));
-					socketPanel.append(socketNode);
-					linkCounter++;
-				}
-				socketPanel.append(endSocketGroup.cloneNode(true));
-
-				
-				var maxLinksBox = document.createElement('span');
-				maxLinksBox.append(document.createTextNode(maxLinks + 'L'));
-				socketInfo.append(maxLinksBox);				
-				socketInfo.append(document.createTextNode(')'));
-				overrides['item.sockets'] = socketPanel;		
-			}
-			if(result.item.implicitMods)
-			{
-				overrides['item.implicitMods'] = makeModList(getMods(result.item, 'implicit'));
-			}
-			if(result.item.fracturedMods)
-			{				
-				overrides['item.fracturedMods'] = makeModList(getMods(result.item, 'fractured'));
-			}
-			if(result.item.explicitMods)
-			{
-				overrides['item.explicitMods'] = makeModList(getMods(result.item, 'explicit'));		
-			}
-			if(result.item.craftedMods)
-			{
-				overrides['item.craftedMods'] = makeModList(getMods(result.item, 'crafted'));					
-			}
-			if(result.item.enchantMods)
-			{
-				overrides['item.enchantMods'] = makeModList(getMods(result.item, 'enchant'));		
-			}
-			if(result.item.veiledMods)
-			{
-				overrides['item.veiledMods'] = makeModList(getMods(result.item, 'veiled'));
-			}
-			if(result.item.properties)
-			{
-				for(var k = 0; k < result.item.properties.length; k++)
-				{
-					var property = result.item.properties[k];
-					if(property != null && property.name)
-					{
-						var propertyName = property.name;
-						var overrideKey = 'item.properties.' + propertyName;
-						var propertyValues = '';
-						if(property.values)
-						{
-							var propValues = property.values;
-							propertyValues = outputPropertyValues(propValues);
-						}
-						overrides[overrideKey] = propertyValues;
-					}
-				}				
-			}					
-
-			if(result.item.corrupted)
-			{
-				overrides['item.corrupted'] = '(Corrupted)';					
-			}
-			
-			if(result.item.duplicated)
-			{
-				overrides['item.mirrored'] = '(Mirrored)';					
-			}
-			
-			if (result.item.stackSize) {
-				overrides['item.stacksize'] = '(stack:' + result.item.stackSize + '/' + result.item.maxStackSize + ')';
-			}
-		}
-		var itemNamePlate = document.createElement('span');
-		itemNamePlate.append(document.createTextNode(result.item.name));
-		overrides['item.name'] = itemNamePlate;
-		
-		var template = document.getElementById('item-template');
-		var newNode = template.cloneNode(true);
-		newNode.id = 'tmp-id';
-		var fields = newNode.querySelectorAll('.template-field');
-		newNode.id = '';
-		if(fields != null && fields.length > 0)
-		{
-			for(var fieldIndex = 0; fieldIndex < fields.length; fieldIndex++)
-			{
-				var field = fields[fieldIndex];
-				var resultPath = field.getAttribute('tf');
-				var aTmpResult = null;
-				if(overrides[resultPath])
-				{
-					aTmpResult = overrides[resultPath];
-				}
-				else
-				{
-					aTmpResult = findValue(field, result,resultPath,0);
-				}	
-				if(aTmpResult != null && aTmpResult != '' && aTmpResult != 'null')
-				{
-					var defaultFields = field.querySelectorAll('.default-text'); 
-					for(var p = 0; p < defaultFields.length; p++)
-					{
-						var defaultField = defaultFields[p];
-						defaultField.parentNode.removeChild(defaultField);
-					}					
-					var dataTargets = field.querySelectorAll('.data-target'); 
-					if(dataTargets != null  && dataTargets.length > 0)
-					{
-						for(var p = 0; p < dataTargets.length; p++)
-						{
-							var dataTarget = dataTargets[p];
-							if(typeof aTmpResult === 'string' ||
-									aTmpResult instanceof String ||
-									typeof aTmpResult === 'number')
-							{
-								var textWrapper = document.createElement('span');
-								textWrapper.append(document.createTextNode(aTmpResult));
-								
-								dataTarget.append(textWrapper);
-							}
-							else
-							{
-								dataTarget.append(aTmpResult.cloneNode(true));
-							}
-						}	
-					}
-					else
-					{
-						field.append(aTmpResult);
-					}
-				}
-				else
-				{
-					var presentFields = field.querySelectorAll('.if-present'); 
-					for(var p = 0; p < presentFields.length; p++)
-					{
-						var presentField = presentFields[p];
-						presentField.parentNode.removeChild(presentField);
-					}									
-				}				
-			}
-		}
-		if(result.item.frameType)
-		{
-			var rarity = frameType[result.item.frameType];
-			var rarityElements = newNode.querySelectorAll('.item-rarity');
-			if(rarityElements != null)
-			{
-				for(var i = 0; i < rarityElements.length; i++)
-				{
-					rarityElements[i].classList.add('r-'+rarity);
-				}
-			}
-		}
-
-*/
 
 		var whisperButton = document.createElement("label");
 		whisperButton.classList.add('whisper-button');
@@ -474,67 +220,33 @@ function addItem(data, searchpart)
 		new_row = document.createElement('div');
 		new_row.appendChild(render_item(result.item))
 		new_row.appendChild(display_item(result.item))
-		new_row.appendChild(whisperButton)
+		new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
+		new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
 		new_row.appendChild(profileLink)
 		new_row.appendChild(searchLink)
+
+
+
 		display.insertBefore(new_row, lastItem);
-		//display.insertBefore(newNode, lastItem);
 		lastItem = new_row;
+		
+		allDisplayedItems.push(lastItem);
+		if(allDisplayedItems.length > maxItemsDisplayed)
+		{
+			var oldestItem = allDisplayedItems.shift();
+			if(oldestItem != null)
+			{
+				oldestItem.parentNode.removeChild(oldestItem);
+				oldestItem = null;			
+			}
+		}
 	}
 } 
 
-function outputPropertyValues(propValues)
-{
-	var returnValue = '{';
-	var isFirst = true;
-	for(var index = 0; index < propValues.length; index++)
-	{
-		var value = propValues[index];
-		if(isFirst)
-		{
-			isFirst = !isFirst;
-		}
-		else
-		{
-			returnValue += ',';
-		}
-		if(value != null)
-		{
-			returnValue += value[0];
-		}
-	}
-	returnValue += '}';
-	return returnValue;
-}
 
-function findValue(field, object, objectPath, depth)
-{
-	var objectValue = object;
-	var objectParts = objectPath.split('.');
-	if(objectParts != null && objectParts.length > 0)
-	{
-		for(var i = 0; i < objectParts.length; i++)
-		{
-			var varName = objectParts[i];
-			if(objectValue != null)
-			{
-				objectValue = objectValue[varName];		
 
-				if(typeof objectValue === 'undefined')
-				{
-					objectValue = '';
-					break;
-				}
-			}
-			else
-			{
-				objectValue = '';
-				break;
-			}
-		}
-	}
-	return objectValue;
-}
+
+
 
 function ItemMod(modName, modTier, modRangeString)
 {
@@ -551,42 +263,11 @@ function CompositeMod(modType, displayText)
 	this.mods = [];
 }
 
-function makeModList(compositeMods)
-{
-	var modlist = '';
-	if(compositeMods != null && compositeMods.length > 0)
-	{
-		var modlist = document.createElement('ul');
-		for(var i = 0; i < compositeMods.length; i++)
-		{
-			var compositeMod = compositeMods[i];
-			var li = document.createElement('li');
-			li.classList.add('m-' + compositeMod.modType);
-			li.append(document.createTextNode(compositeMod.displayText));
-			if(compositeMod.mods && compositeMod.mods.length && compositeMod.mods.length > 0)
-			{
-				var itemMods = compositeMod.mods;
-				for(var j = 0; j < itemMods.length; j++)
-				{
-					var itemMod = itemMods[j];
-					var span = document.createElement('span');
-					span.classList.add('prefix');
-					span.append(document.createTextNode('|' + itemMod.modName + ' ' + itemMod.modTier + ' ' + itemMod.modRangeString));
-					li.append(span);
-				
-				}
-			}
-			modlist.append(li);
-		}
-	}	
-	
-	return modlist;	
-}
-
 function getMods(item, modType)
 {
+
 	var veiled_hashes = [];
-	
+
 	var fullMods = [];
 	if(item[modType + 'Mods'])
 	{
@@ -611,10 +292,7 @@ function getMods(item, modType)
 					if(hashes[modType])
 					{
 						for(var i = 0; i < hashes[modType].length; i++)
-						{	
-							if(modType == "veiled"){
-								veiled_hashes.push(hashes[modType][i][0])
-							}
+						{		
 							fullMods[i].compositeModKey = hashes[modType][i][0];
 							hashToMod[fullMods[i].compositeModKey] = fullMods[i];
 						}
@@ -638,25 +316,37 @@ function getMods(item, modType)
 									var modMagnitudes = moreModInfo.magnitudes;
 									if(modMagnitudes != null && modMagnitudes.length > 0)
 									{
+										var keyToCompositeMods = [];
 										for(var v = 0; v < modMagnitudes.length; v++)
 										{	
 											var modHashKey = modMagnitudes[v].hash;
 											var modMin = modMagnitudes[v].min;
 											var modMax = modMagnitudes[v].max;
-											var modRange = '('+ modMin + '-' + modMax + ')';
-											if( modMin != 0 || modMax != 0){
-												var itemMod = new ItemMod(modName, modTier, modRange);
-												hashToMod[modHashKey].mods.push(itemMod);
+											var modRange = '';
+											if(modMin != modMax)
+											{
+												modRange = '('+ modMin + '-' + modMax + ')';
+												var itemMod = keyToCompositeMods[modHashKey];
+												if(itemMod == null)
+												{
+													var itemMod = new ItemMod(modName, modTier, modRange);
+													hashToMod[modHashKey].mods.push(itemMod);
+													keyToCompositeMods[modHashKey] = itemMod;
+												}
+												else
+												{
+													itemMod.modRangeString += ' - ' + modRange;
+												}
 											}
 										}
 									}
-								}
-								else if (modType == "veiled")
-								{
-									var modHashKey = veiled_hashes[i]
-									var modRange = '';
-									var itemMod = new ItemMod(modName, modTier, modRange);
-									hashToMod[modHashKey].mods.push(itemMod);
+									else if (modType == "veiled")
+									{
+										var modHashKey = veiled_hashes[i]
+										var modRange = '';
+										var itemMod = new ItemMod(modName, modTier, modRange);
+										hashToMod[modHashKey].mods.push(itemMod);
+									}
 								}
 							}
 						}
@@ -669,6 +359,27 @@ function getMods(item, modType)
 }
 
 
+
+function buildCopyButton(buttonText, copyValue)
+{
+	var button = document.createElement("label");
+	button.classList.add('button');
+	
+	button.innerHTML = buttonText;
+	var copyText = document.createElement("textarea");
+	copyText.btn = button;
+	copyText.value = copyValue;
+	copyText.classList.add('copy-text');
+	copyText.onclick = function()
+	{
+		this.btn.classList.add('copied');
+		this.select();
+		document.execCommand("copy");		 
+	};
+	button.append(copyText);
+
+	return button;
+}
 
 function showHide()
 {

@@ -27,6 +27,11 @@ img[onclick]
 	cursor: pointer;
 }
 
+img {
+	margin: .25rem;
+	margin-left: 0rem;
+	height: 3rem;
+}
 
 input, textarea, select {
 	box-sizing: border-box;
@@ -95,12 +100,12 @@ input, textarea, select {
 	background-color: #88fca7;
 }
 
-input.whisper {
+.copy-text {
 	position: absolute;
 	left: -100vw;
 }
 
-.whisper-button {
+.button {
 	color: #ffffff;
 	position: relative;
 	display: inline-block;
@@ -190,14 +195,14 @@ input.whisper {
 
 ul
 {
-	display: inline-block;
+	display: block;
 	margin-top: 0px;
 	margin-bottom: 3px;
 }
 
 ul li
 {
-	max-width: 350px; 
+	max-width: 50vw;
 }
 
 li:hover
@@ -213,6 +218,27 @@ li:hover
 	color: #A29162;
 }
 
+.data-value span.l-6L
+{
+	border: #ff0000;
+	background-color: #ffffff;
+	color: #ff0000;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.mod-box
+{
+	margin-left: .5rem;
+}
+.prefix
+{
+	color: #8888FF !important;
+}
+.suffix
+{
+	color: #ec7676 !important;
+}
 .data-value span
 {
 	display: inline-block;
@@ -377,6 +403,32 @@ a:visited
 	padding: .25rem;
 }
 
+.icon-wrapper
+{
+	position: relative;
+	display: inline-block;
+}
+
+.icon-wrapper .stack-text
+{
+	position: absolute;
+	display: inline-block;
+	bottom: 5px;
+	right: 5px;
+	padding: 2px;
+	background-color: rgba(255,255,255, .7);
+	border: 1px solid black;
+	border-radius: 5px;
+	color: #000000;
+	text-shadow: none;
+}
+
+.icon
+{
+	display: inline-block;
+}
+
+
 
 
 .results
@@ -391,4 +443,3 @@ a:visited
 	horizontal-align: center;
 	position: relative;
 }
-
