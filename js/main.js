@@ -7,10 +7,13 @@ var maxItemsDisplayed = 300;
 var allDisplayedItems = [];
 var hasActiveSockets = false;
 
-function ItemRequest(searchpart, listings)
+function ItemRequest(searchpart, name, sound, volume, listings)
 {
 	this.listings = listings;
 	this.searchpart = searchpart;
+	this.name = name;
+	this.sound = sound;
+	this.volume = volume;
 }
 
 function RequestManager()
@@ -21,13 +24,13 @@ function RequestManager()
 	{		
 		var listings = newRequest.listings.length;
 		var filteredListing = [];
-		
+			
 		for(var i = 0; i < listings; i++)
 		{
 			filteredListing.push(newRequest.listings[i]);
 			if(filteredListing.length == 10)
 			{
-				var tmpRequest = new ItemRequest(newRequest.searchpart, filteredListing);
+				var tmpRequest = new ItemRequest(newRequest.searchpart, newRequest.name, newRequest.sound, newRequest.volume, filteredListing);
 				this.itemRequests.push(tmpRequest);		
 				filteredListing = [];
 			}
@@ -35,7 +38,7 @@ function RequestManager()
 		
 		if(filteredListing.length > 0)
 		{
-			var tmpRequest = new ItemRequest(newRequest.searchpart, filteredListing);
+			var tmpRequest = new ItemRequest(newRequest.searchpart, newRequest.name, newRequest.sound, newRequest.volume, filteredListing);
 			this.itemRequests.push(tmpRequest);
 		}			
 
@@ -50,13 +53,13 @@ function RequestManager()
 			var getItemUrl = 'https://www.pathofexile.com/api/trade/fetch/';	
 			var itemUrl = getItemUrl + itemRequest.listings;
 			itemUrl += '?query=' + itemRequest.searchpart;
-			this.processItem(itemUrl, itemRequest.searchpart);			
+			this.processItem(itemUrl, itemRequest.searchpart, itemRequest.sound, itemRequest.volume);			
 		}
 	};
-	this.processItem = function (itemUrl, searchpart)
+	this.processItem = function (itemUrl, searchpart, sound, volume)
 	{
 		callAjax(itemUrl, addItem, searchpart);
-		soundHandler(document.getElementById('notification-sound').value);
+		soundHandler(sound, volume);
 	};
 }
 
@@ -91,10 +94,36 @@ function startSockets()
 		for(var i = 0; i < searches.length; i++)
 		{
 			socketsToOpen = searches.length;
-			var search = searches[i].trim();
+			searches[i] = searches[i].trim();
+			var splitSeach = searches[i].split('[');
+			var search = splitSeach[0];
 			var tmp = socketUrl + search;
 			var searchSocket = new WebSocket(tmp);
 			searchSocket.searchpart = search;
+			if (splitSeach.length >1 )
+			{
+				searchSocket.searchName = splitSeach[1].slice(0, -1);
+			}
+			else
+			{
+				searchSocket.searchName ='';
+			}
+			if (splitSeach.length >2 )
+			{
+				searchSocket.searchSound = splitSeach[2].slice(0, -1);
+			}
+			else
+			{
+				searchSocket.searchSound =document.getElementById('notification-sound').value;
+			}
+			if (splitSeach.length >3 )
+			{
+				searchSocket.searchVolume = parseFloat(splitSeach[3]);
+			}
+			else
+			{
+				searchSocket.searchVolume = 1;
+			}
 			sockets.push(searchSocket);
 			searchSocket.onopen = function(event)
 			{
@@ -118,7 +147,7 @@ function startSockets()
 			searchSocket.onmessage = function (event) 
 			{
 				var json = JSON.parse(event.data);
-				var itemRequest = new ItemRequest(this.searchpart,json.new);
+				var itemRequest = new ItemRequest(this.searchpart, this.searchName, this.searchSound, this.searchVolume, json.new);
 				requestManager.addRequest(itemRequest);
 			}
 		}	
