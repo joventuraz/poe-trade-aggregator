@@ -283,10 +283,6 @@ function getMods(item, modType)
 			for(var i = 0; i < basicModText.length; i++)
 			{
 				var displayText = basicModText[i];
-				if(modType === 'veiled')
-				{
-					displayText = 'Veiled ' + displayText;
-				}
 				fullMods.push(new CompositeMod(modType,displayText));
 			}
 			if(item.extended)
