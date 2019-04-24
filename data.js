@@ -6,6 +6,7 @@ var socketsToOpen = 0;
 var maxItemsDisplayed = 300;
 var allDisplayedItems = [];
 var hasActiveSockets = false;
+var cookieDurationDays = 91;
 
 function ItemRequest(searchpart, listings)
 {
@@ -82,9 +83,13 @@ function startSockets()
 		socketCounterBox.classList.add('active');
 		
 		var league = document.getElementById('league').value;
+		setCookie('league', league, cookieDurationDays);
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
+		setCookie('searches', searchesString, cookieDurationDays);
 		var searches = searchesString.split(',');
+		var soundId = document.getElementById('notification-sound').value;
+		setCookie('notification-sound', soundId, cookieDurationDays);
 		
 		for(var i = 0; i < searches.length; i++)
 		{
