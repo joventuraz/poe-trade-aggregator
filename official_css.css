@@ -1067,7 +1067,16 @@ results .row .left .newItemContainer, .results #trade .search-bar .left .newItem
 
 }
 
-
+.itemPopupContainer {
+    position: relative;
+    text-align: center;
+    z-index: 10000;
+    min-width: 742px;
+    max-width: 742.39351px;
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}
 
 
 //For left and right mod text
