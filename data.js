@@ -6,7 +6,6 @@ var socketsToOpen = 0;
 var maxItemsDisplayed = 300;
 var allDisplayedItems = [];
 var hasActiveSockets = false;
-var cookieDurationDays = 91;
 
 function ItemRequest(searchpart, listings)
 {
@@ -83,13 +82,9 @@ function startSockets()
 		socketCounterBox.classList.add('active');
 		
 		var league = document.getElementById('league').value;
-		setCookie('league', league, cookieDurationDays);
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
-		setCookie('searches', searchesString, cookieDurationDays);
 		var searches = searchesString.split(',');
-		var soundId = document.getElementById('notification-sound').value;
-		setCookie('notification-sound', soundId, cookieDurationDays);
 		
 		for(var i = 0; i < searches.length; i++)
 		{
@@ -178,86 +173,32 @@ function addItem(data, searchpart)
 	for(var resultIndex = 0; resultIndex < results.length; resultIndex++)
 	{	
 		var result = results[resultIndex];
-
-		var whisperButton = document.createElement("label");
-		whisperButton.classList.add('whisper-button');
-		
-		whisperButton.innerHTML = 'Whisper';
-		var whisperText = document.createElement("input");
-		whisperText.btn = whisperButton;
-		whisperText.value = result.listing.whisper;
-		whisperText.classList.add('whisper');
-		whisperText.onclick = function()
-		{
-			this.btn.classList.add('copied');
-			 var copyText = this;
-			 copyText.select();
-			 document.execCommand("copy");
-			 var whisperMsg = document.getElementById('whisper-message');
-			 whisperMsg.classList.add('active');
-			 
-			 setTimeout(function(){whisperMsg.classList.remove('active');}, 500);
-			 
-		};
-		if(!(typeof result.item.note === 'undefined'))
-		{
-			whisperButton.title = result.item.note;
-		}
-		whisperButton.append(whisperText);
-
-		if(result.listing.account.name)
-		{
-			var profileLink = document.createElement('a');
-			profileLink.href = 'https://www.pathofexile.com/account/view-profile/' + result.listing.account.name;
-			profileLink.appendChild(document.createTextNode(result.listing.account.name));
-			profileLink.target = '_blank';
-		}
-
-		if(searchpart != null)
-		{
-			var searchLink = document.createElement('a');
-			var league = document.getElementById('league').value;
-			searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
-			searchLink.appendChild(document.createTextNode(searchpart));
-			searchLink.target = '_blank';
-		}
-
-		new_row = document.createElement('div');
-		new_row.appendChild(render_item(result.item))
-		new_row.appendChild(display_item(result.item))
-		new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
-		new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
-		new_row.appendChild(profileLink)
-		new_row.appendChild(searchLink)
-
-
-
-		display.insertBefore(new_row, lastItem);
-		lastItem = new_row;
-		
-		allDisplayedItems.push(lastItem);
-		if(allDisplayedItems.length > maxItemsDisplayed)
-		{
-			var oldestItem = allDisplayedItems.shift();
-			if(oldestItem != null)
-			{
-				oldestItem.parentNode.removeChild(oldestItem);
-				oldestItem = null;			
-			}
-		}
+		//dView(result, searchpart, display);
+		nView(result, searchpart, display);
 	}
 } 
-
-
-
-
-
 
 function ItemMod(modName, modTier, modRangeString)
 {
 	this.modName = modName;
 	this.modTier = modTier;
 	this.modRangeString = modRangeString;
+	this.modType = '';
+	if(modTier != null)
+	{
+		if(modTier.startsWith('P'))
+		{
+			this.modType='prefix';
+		}
+		else if(modTier.startsWith('S'))
+		{
+			this.modType='suffix';
+		}
+		else if(modTier.startsWith('R'))
+		{
+			this.modType='crafted';
+		}
+	}
 }
 
 function CompositeMod(modType, displayText)
@@ -270,9 +211,7 @@ function CompositeMod(modType, displayText)
 
 function getMods(item, modType)
 {
-
 	var veiled_hashes = [];
-
 	var fullMods = [];
 	if(item[modType + 'Mods'])
 	{
@@ -315,50 +254,55 @@ function getMods(item, modType)
 								if(moreModInfo.magnitudes)
 								{
 									var modMagnitudes = moreModInfo.magnitudes;
-									    if(modMagnitudes != null && modMagnitudes.length > 0)
-									    {
+									if(modMagnitudes != null && modMagnitudes.length > 0)
+									{
 										var keyToCompositeMods = [];
 										for(var v = 0; v < modMagnitudes.length; v++)
-										{  
-										    var modHashKey = modMagnitudes[v].hash;
-										    var modMin = modMagnitudes[v].min;
-										    var modMax = modMagnitudes[v].max;
-										    var modRange = '';
-										    if(modMin != modMax)
-										    {
-										        modRange = '('+ modMin + '-' + modMax + ')';
-										       
-										    }
-					 
-										    if(modMin != 0 || modMax != 0)
-										    {
-										        var itemMod = keyToCompositeMods[modHashKey];
-										       
-										        if(itemMod == null)
-										        {
-										            var itemMod = new ItemMod(modName, modTier, modRange);
-												try{
-										            hashToMod[modHashKey].mods.push(itemMod);}
-												catch(err){ console.log();}
-										            keyToCompositeMods[modHashKey] = itemMod;
-										        }
-										        else
-										        {
-										            if(modRange != '')
-										            {
-										                itemMod.modRangeString += ' - ' + modRange;
-										            }
-										        }  
-										    }                                      
+										{	
+											var modHashKey = modMagnitudes[v].hash;
+											var modMin = modMagnitudes[v].min;
+											var modMax = modMagnitudes[v].max;
+											var modRange = '';
+											if(modMin != modMax)
+											{
+												modRange = '('+ modMin + '-' + modMax + ')';
+												
+											}
+
+											if(modMin != 0 || modMax != 0)
+											{
+												var itemMod = keyToCompositeMods[modHashKey];
+												
+												if(itemMod == null)
+												{
+													var itemMod = new ItemMod(modName, modTier, modRange);
+													try
+													{
+														hashToMod[modHashKey].mods.push(itemMod);
+													}
+													catch(err)
+													{
+														console.log();
+													}
+													keyToCompositeMods[modHashKey] = itemMod;
+												}
+												else
+												{
+													if(modRange != '')
+													{
+														itemMod.modRangeString += ' - ' + modRange;
+													}
+												}	
+											}										
 										}
-									    }
+									}
 									else if (modType == "veiled")
 									{
-										var modHashKey = veiled_hashes[i]
+										var modHashKey = veiledHashes[i]
 										var modRange = '';
 										var itemMod = new ItemMod(modName, modTier, modRange);
 										hashToMod[modHashKey].mods.push(itemMod);
-									}
+								}
 								}
 							}
 						}
@@ -404,56 +348,44 @@ function showHide()
 	}
 }
 
-function setCookie(cname, cvalue, exdays) 
+function nView(result)
 {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
+	var new_row = document.createElement('div');
+	new_row.appendChild(render_item(result.item))
+	new_row.appendChild(display_item(result.item))
+	new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
+	new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
 
-function getCookie(cname) 
-{
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) 
+	if(result.listing.account.name)
 	{
-		var c = ca[i];
-		while (c.charAt(0) == ' ') 
+		var profileLink = document.createElement('a');
+		profileLink.href = 'https://www.pathofexile.com/account/view-profile/' + result.listing.account.name;
+		profileLink.appendChild(document.createTextNode(result.listing.account.name));
+		profileLink.target = '_blank';
+		new_row.appendChild(profileLink);
+	}
+
+	if(searchpart != null)
+	{
+		var searchLink = document.createElement('a');
+		var league = document.getElementById('league').value;
+		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
+		searchLink.appendChild(document.createTextNode(searchpart));
+		searchLink.target = '_blank';
+		new_row.appendChild(searchLink);
+	}
+
+	display.insertBefore(new_row, lastItem);
+	lastItem = new_row;
+	
+	allDisplayedItems.push(lastItem);
+	if(allDisplayedItems.length > maxItemsDisplayed)
+	{
+		var oldestItem = allDisplayedItems.shift();
+		if(oldestItem != null)
 		{
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) 
-		{
-			return c.substring(name.length, c.length);
+			oldestItem.parentNode.removeChild(oldestItem);
+			oldestItem = null;			
 		}
 	}
-	return "";
 }
-
-
-function checkCookie() 
-{
-	console.log('checkCookie');
-	var searchslist = getCookie('searches');
-	console.log(searchslist);
-	if (searchslist != "") 
-	{
-		document.getElementById('searches').value = searchslist;
-	} 
-	var league = getCookie('league');
-	console.log(league);
-	if (league != "") 
-	{
-		document.getElementById('league').value = league;
-	}
-	var soundId = getCookie('notification-sound');
-	console.log(soundId);
-	if (soundId != "") 
-	{
-		document.getElementById('notification-sound').value = soundId;
-	} 
-} 
-
-checkCookie();
