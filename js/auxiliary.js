@@ -26,20 +26,20 @@ function getCookie(cname) {
 } 
  
 function checkCookie() { 
-	console.log('checkCookie'); 
+	//console.log('checkCookie'); 
 	var searchslist = getCookie('searches'); 
-	console.log(searchslist); 
 	if (searchslist != "") { 
+		console.log('searchslist cookie: ' + searchslist); 
 		document.getElementById('searches').value = searchslist; 
 	}  
 	var league = getCookie('league'); 
-	console.log(league); 
 	if (league != "") { 
+		console.log('league cookie: ' + league); 
 		document.getElementById('league').value = league; 
 	} 
 	var soundId = getCookie('notification-sound'); 
-	console.log(soundId); 
 	if (soundId != "") { 
+		console.log('soundId cookie: ' + soundId); 
 		document.getElementById('notification-sound').value = soundId; 
 	}  
 }  
@@ -57,10 +57,11 @@ function populateSdounds(){
 }
 
 function soundHandler(soundId, volume){ 
+	//console.log(soundId,volume );
 	if(soundId != null && soundId.length > 0){
 		if (sounds[soundId] == null){
 			//this will cuase error if file doesnt exist but i dont know how to check if it exists
-			sounds[soundId] =  new Audio('./sounds/' + soundId + '.mp3'); 
+			sounds[soundId] =  new Audio('./js/sounds/' + soundId + '.mp3'); 
 		}
 		if (volume != null){
 			sounds[soundId].volume = volume;

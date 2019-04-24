@@ -108,7 +108,7 @@ function startSockets()
 			{
 				searchSocket.searchName ='';
 			}
-			if (splitSeach.length >2 )
+			if (splitSeach.length >2 && splitSeach[2] != ']')
 			{
 				searchSocket.searchSound = splitSeach[2].slice(0, -1);
 			}
