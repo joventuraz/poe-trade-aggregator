@@ -27,6 +27,11 @@ img[onclick]
 	cursor: pointer;
 }
 
+.icon-wrapper img {
+	margin: .25rem;
+	margin-left: 0rem;
+	height: 3rem;
+}
 
 input, textarea, select {
 	box-sizing: border-box;
@@ -112,8 +117,7 @@ input, textarea, select {
 	transition: background-color 1s;
 }
 
-
-.whisper-button:hover {
+.button:hover {
 	background-color: #1f4c93;
 }
 
@@ -398,8 +402,32 @@ a:visited
 	padding: .25rem;
 }
 
+.template-field.icon
+{
+	display: inline-block;
+}
+
+.icon-wrapper
+{
+	position: relative;
+	display: inline-block;
+}
+
+.icon-wrapper .stack-text
+{
+	position: absolute;
+	display: inline-block;
+	bottom: 5px;
+	right: 5px;
+	background-color: rgba(255,255,255, .7);
+	border-radius: 5px;
+	color: #000000;
+	text-shadow: none;
+}
+
 .itemPopupContainer 
-{    	text-align: center;
+{    	
+	text-align: center;
 	display: inline-block;
 	width: 40%;
 	horizontal-align: center;
