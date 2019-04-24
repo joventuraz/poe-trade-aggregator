@@ -368,9 +368,13 @@ function nView(result, searchpart, display)
 	new_row.className = 'row';
 	new_row.appendChild(render_item(result.item))
 	new_row.appendChild(display_item(result.item))
+
+	if (result.listing.price){
+	new_row.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
+	}
 	new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
 	new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
-
+	
 	if(result.listing.account.name)
 	{
 		var profileLink = document.createElement('a');
