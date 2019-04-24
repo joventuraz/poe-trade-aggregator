@@ -27,12 +27,15 @@
 	<input type='button' value='Start' onclick="startSockets()" />
 	<input type='button' value='Stop' onclick="stopSockets()" />
 	<input type='button' value='Clear' onclick="clearDisplay()" />
+	Compact View:
+	<input type="checkbox" value='Compact' id="checkbox1" onchange="toggleNDisplay()"/>
+  	<label value='Compact' for="checkbox1" class="checkboxlabel"></label>
 
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="data2.js"></script>
 	<script type="text/javascript" src="render.js"></script>
 	<div id='whisper-message'>Whisper Message Copied</div>
-	<div id='display-window'></div>
+	<div id='display-window' class='results'></div>
 	<div class="hidden">
 		<div class='item-display' id='item-template'>
 			<span class='template-field searchpart' tf='searchpart'></span>

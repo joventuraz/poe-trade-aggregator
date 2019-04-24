@@ -354,9 +354,23 @@ function showHide()
 	}
 }
 
+function toggleNDisplay(){
+	result_div = document.getElementById('display-window');
+	if(result_div.className == "results")
+	{
+		result_div.className = "results compact"
+	}
+	else
+	{
+		result_div.className = "results"
+	}
+
+}
+
 function nView(result, searchpart, display)
 {
 	var new_row = document.createElement('div');
+	new_row.className = 'row';
 	new_row.appendChild(render_item(result.item))
 	new_row.appendChild(display_item(result.item))
 	new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));

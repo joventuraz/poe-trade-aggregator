@@ -688,10 +688,10 @@ function display_item(item)
 	box_container.appendChild(box_content);
 	
 
-	var results_wrapper = document.createElement('div');
-	results_wrapper.className = "results compact two"
-	results_wrapper.appendChild(box_container)
-	return results_wrapper
+	var middle_wrapper = document.createElement('div');
+	middle_wrapper.className = "middle"
+	middle_wrapper.appendChild(box_container)
+	return middle_wrapper
 
 
 }
@@ -743,8 +743,8 @@ function create_socket_div(item){
 
 
 function render_item(item){
-	var results_wrapper = document.createElement('div');
-	results_wrapper.className = "results"
+	var left_wrapper = document.createElement('div');
+	left_wrapper.className = "left"
 	
 	var item_container = document.createElement('div');
 	item_container.className = "results newItemContainer itemRender iW" + item.w + " iH" + item.h
@@ -763,9 +763,9 @@ function render_item(item){
 	icon_div.appendChild(icon_image)
 	icon_div.appendChild(create_socket_div(item))
 	
-	results_wrapper.appendChild(item_container);
+	left_wrapper.appendChild(item_container);
 	
-	return results_wrapper
+	return left_wrapper
 
 }
 

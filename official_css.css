@@ -1167,3 +1167,57 @@ element {
 .newItemPopup .experienceBar, .results .row .middle .itemPopupAdditional .experienceBar, .results #trade .search-bar .middle .itemPopupAdditional .experienceBar, #trade .results .search-bar .middle .itemPopupAdditional .experienceBar {
     text-align: left;
 }
+
+/* left div */
+.results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left {
+    position: initial;
+    text-align: center;
+}
+.col-sm-3, .results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left, .results .row .right, .results #trade .search-bar .right, #trade .results .search-bar .right, .results .row.exchange .contact .slider .slider-left, .results #trade .exchange.search-bar .contact .slider .slider-left, #trade .results .exchange.search-bar .contact .slider .slider-left, .results .row.exchange .contact .slider .slider-right, .results #trade .exchange.search-bar .contact .slider .slider-right, #trade .results .exchange.search-bar .contact .slider .slider-right {
+    width: 25%;
+}
+.col-sm-1, .col-sm-2, .col-sm-3, .results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left, .results .row .right, .results #trade .search-bar .right, #trade .results .search-bar .right, .results .row.exchange .contact .slider .slider-left, .results #trade .exchange.search-bar .contact .slider .slider-left, #trade .results .exchange.search-bar .contact .slider .slider-left, .results .row.exchange .contact .slider .slider-right, .results #trade .exchange.search-bar .contact .slider .slider-right, #trade .results .exchange.search-bar .contact .slider .slider-right, .col-sm-4, #trade .controls .controls-left, #trade .controls .controls-right, #trade .controls .controls-center, .col-sm-5, #trade .search-bar .search-right, .col-sm-6, .results .row .middle, .results #trade .search-bar .middle, #trade .results .search-bar .middle, .results .row.exchange .contact .slider .slider-middle, .results #trade .exchange.search-bar .contact .slider .slider-middle, #trade .results .exchange.search-bar .contact .slider .slider-middle, .col-sm-7, #trade .search-bar .search-left, .col-sm-8, .col-sm-9, .results .row .left.middle, .results #trade .search-bar .left.middle, #trade .results .search-bar .left.middle, .col-sm-10, .col-sm-11, .col-sm-12 {
+    float: left;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left, .results .row .right, .results #trade .search-bar .right, #trade .results .search-bar .right, .results .row.exchange .contact .slider .slider-left, .results #trade .exchange.search-bar .contact .slider .slider-left, #trade .results .exchange.search-bar .contact .slider .slider-left, .results .row.exchange .contact .slider .slider-right, .results #trade .exchange.search-bar .contact .slider .slider-right, #trade .results .exchange.search-bar .contact .slider .slider-right, .col-md-3, #trade .controls .controls-left, #trade .controls .controls-right, .col-lg-3, .col-xs-4, .col-sm-4, #trade .controls .controls-left, #trade .controls .controls-right, #trade .controls .controls-center, .col-md-4, .col-lg-4, #trade .search-bar .search-right, .col-xs-5, .col-sm-5, #trade .search-bar .search-right, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .results .row .middle, .results #trade .search-bar .middle, #trade .results .search-bar .middle, .results .row.exchange .contact .slider .slider-middle, .results #trade .exchange.search-bar .contact .slider .slider-middle, #trade .results .exchange.search-bar .contact .slider .slider-middle, .col-md-6, #trade .controls .controls-center, .col-lg-6, #trade .search-bar .search-advanced-pane, .col-xs-7, .col-sm-7, #trade .search-bar .search-left, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, #trade .search-bar .search-left, #trade .search-bar .search-advanced-pane.exchange, .col-xs-9, .col-sm-9, .results .row .left.middle, .results #trade .search-bar .left.middle, #trade .results .search-bar .left.middle, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, #trade .search-bar .search-left, #trade .search-bar .search-right, #trade .search-bar .search-advanced-pane, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/* for middle */
+.col-sm-6, .results .row .middle, .results #trade .search-bar .middle, #trade .results .search-bar .middle, .results .row.exchange .contact .slider .slider-middle, .results #trade .exchange.search-bar .contact .slider .slider-middle, #trade .results .exchange.search-bar .contact .slider .slider-middle {
+    width: 50%;
+}
+.col-sm-1, .col-sm-2, .col-sm-3, .results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left, .results .row .right, .results #trade .search-bar .right, #trade .results .search-bar .right, .results .row.exchange .contact .slider .slider-left, .results #trade .exchange.search-bar .contact .slider .slider-left, #trade .results .exchange.search-bar .contact .slider .slider-left, .results .row.exchange .contact .slider .slider-right, .results #trade .exchange.search-bar .contact .slider .slider-right, #trade .results .exchange.search-bar .contact .slider .slider-right, .col-sm-4, #trade .controls .controls-left, #trade .controls .controls-right, #trade .controls .controls-center, .col-sm-5, #trade .search-bar .search-right, .col-sm-6, .results .row .middle, .results #trade .search-bar .middle, #trade .results .search-bar .middle, .results .row.exchange .contact .slider .slider-middle, .results #trade .exchange.search-bar .contact .slider .slider-middle, #trade .results .exchange.search-bar .contact .slider .slider-middle, .col-sm-7, #trade .search-bar .search-left, .col-sm-8, .col-sm-9, .results .row .left.middle, .results #trade .search-bar .left.middle, #trade .results .search-bar .left.middle, .col-sm-10, .col-sm-11, .col-sm-12 {
+    float: left;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .results .row .left, .results #trade .search-bar .left, #trade .results .search-bar .left, .results .row .right, .results #trade .search-bar .right, #trade .results .search-bar .right, .results .row.exchange .contact .slider .slider-left, .results #trade .exchange.search-bar .contact .slider .slider-left, #trade .results .exchange.search-bar .contact .slider .slider-left, .results .row.exchange .contact .slider .slider-right, .results #trade .exchange.search-bar .contact .slider .slider-right, #trade .results .exchange.search-bar .contact .slider .slider-right, .col-md-3, #trade .controls .controls-left, #trade .controls .controls-right, .col-lg-3, .col-xs-4, .col-sm-4, #trade .controls .controls-left, #trade .controls .controls-right, #trade .controls .controls-center, .col-md-4, .col-lg-4, #trade .search-bar .search-right, .col-xs-5, .col-sm-5, #trade .search-bar .search-right, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .results .row .middle, .results #trade .search-bar .middle, #trade .results .search-bar .middle, .results .row.exchange .contact .slider .slider-middle, .results #trade .exchange.search-bar .contact .slider .slider-middle, #trade .results .exchange.search-bar .contact .slider .slider-middle, .col-md-6, #trade .controls .controls-center, .col-lg-6, #trade .search-bar .search-advanced-pane, .col-xs-7, .col-sm-7, #trade .search-bar .search-left, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, #trade .search-bar .search-left, #trade .search-bar .search-advanced-pane.exchange, .col-xs-9, .col-sm-9, .results .row .left.middle, .results #trade .search-bar .left.middle, #trade .results .search-bar .left.middle, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, #trade .search-bar .search-left, #trade .search-bar .search-right, #trade .search-bar .search-advanced-pane, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+/* for row */
+.results .row, .results #trade .search-bar, #trade .results .search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.results .row, .results #trade .search-bar, #trade .results .search-bar {
+    opacity: 1.0;
+    background-color: rgba(10,10,10,0.8);
+    padding: 8px 0;
+    margin: 0;
+    position: relative;
+    transition: opacity 0.5s;
+}
