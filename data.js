@@ -12,6 +12,7 @@ function ItemRequest(searchpart, listings)
 	this.listings = listings;
 	this.searchpart = searchpart;
 }
+
 function RequestManager()
 {
 	this.itemRequests = [];
@@ -63,11 +64,13 @@ function RequestManager()
 		}
 	};
 }
+
 var requestManager = new RequestManager();
 function getItems()
 {
 	requestManager.getNextItem();
 }
+
 setInterval(getItems, 500);
 function startSockets() 
 {	
@@ -82,9 +85,13 @@ function startSockets()
 		socketCounterBox.classList.add('active');
 		
 		var league = document.getElementById('league').value;
+		setCookie('league', league, cookieDurationDays);
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
+		setCookie('searches', searchesString, cookieDurationDays);
 		var searches = searchesString.split(',');
+		var soundId = document.getElementById('notification-sound').value;
+		setCookie('notification-sound', soundId, cookieDurationDays);
 		
 		for(var i = 0; i < searches.length; i++)
 		{
@@ -163,7 +170,6 @@ function stopSockets()
 } 
 
 var frameType = ["Normal","Magic","Rare","Unique","Gem","Currency","DivinationCard","Quest","Prophecy","Relic"];
-
 function addItem(data, searchpart) 
 {
 	var json = JSON.parse(data);
@@ -211,7 +217,7 @@ function CompositeMod(modType, displayText)
 
 function getMods(item, modType)
 {
-	var veiled_hashes = [];
+	var veiledHashes = [];
 	var fullMods = [];
 	if(item[modType + 'Mods'])
 	{
@@ -348,7 +354,7 @@ function showHide()
 	}
 }
 
-function nView(result)
+function nView(result, searchpart, display)
 {
 	var new_row = document.createElement('div');
 	new_row.appendChild(render_item(result.item))
