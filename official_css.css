@@ -29,6 +29,10 @@
 }
 
 
+
+
+
+
 .newItemPopup, .results .row .middle .itemPopupAdditional, .results #trade .search-bar .middle .itemPopupAdditional, #trade .results .search-bar .middle .itemPopupAdditional {
     background: rgba(0,0,0,0.8);
     color: #7f7f7f;
@@ -1079,6 +1083,8 @@ results .row .left .newItemContainer, .results #trade .search-bar .left .newItem
 }
 
 
+
+
 //For left and right mod text
 element {
 
@@ -1136,4 +1142,28 @@ element {
     user-select: none;
 }*/
 
+/* gem exp */
+.newItemPopup .experienceBar .fill span, .results .row .middle .itemPopupAdditional .experienceBar .fill span, .results #trade .search-bar .middle .itemPopupAdditional .experienceBar .fill span, #trade .results .search-bar .middle .itemPopupAdditional .experienceBar .fill span {
+    display: inline-block;
+    height: 13px;
+    background: url('image/item/popup/experience-bar-fill.png') repeat-x;
+}
 
+.newItemPopup .experienceBar, .results .row .middle .itemPopupAdditional .experienceBar, .results #trade .search-bar .middle .itemPopupAdditional .experienceBar, #trade .results .search-bar .middle .itemPopupAdditional .experienceBar {
+    background: url('image/item/popup/experience-bar.png');
+    width: 212px;
+    height: 13px;
+    margin: 0 4px;
+    display: inline-block;
+    text-align: left;
+}
+
+.newItemPopup .experienceBar .fill, .results .row .middle .itemPopupAdditional .experienceBar .fill, .results #trade .search-bar .middle .itemPopupAdditional .experienceBar .fill, #trade .results .search-bar .middle .itemPopupAdditional .experienceBar .fill {
+    width: 204px;
+    display: inline-block;
+    margin: 0px 4px;
+}
+
+.newItemPopup .experienceBar, .results .row .middle .itemPopupAdditional .experienceBar, .results #trade .search-bar .middle .itemPopupAdditional .experienceBar, #trade .results .search-bar .middle .itemPopupAdditional .experienceBar {
+    text-align: left;
+}

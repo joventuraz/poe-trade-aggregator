@@ -226,18 +226,6 @@ li:hover
 	padding-right: 2px;
 }
 
-.mod-box
-{
-	margin-left: .5rem;
-}
-.prefix
-{
-	color: #8888FF !important;
-}
-.suffix
-{
-	color: #ec7676 !important;
-}
 .data-value span
 {
 	display: inline-block;

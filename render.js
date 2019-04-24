@@ -1,4 +1,134 @@
+/*code to handle extended mods*/
 
+function ItemMod(modName, modTier, modRangeString)
+{
+	this.modName = modName;
+	this.modTier = modTier;
+	this.modRangeString = modRangeString;
+}
+
+function CompositeMod(modType, displayText)
+{
+	this.modType = modType;
+	this.displayText = displayText;
+	this.compositeModKey = '';
+	this.mods = [];
+}
+
+function getMods(item, modType)
+{
+
+	var veiled_hashes = [];
+
+	var fullMods = [];
+	if(item[modType + 'Mods'])
+	{
+		var basicModText = item[modType + 'Mods'];
+		if(basicModText != null && basicModText.length && basicModText.length > 0)
+		{
+			var hashToMod = [];
+			for(var i = 0; i < basicModText.length; i++)
+			{
+				var displayText = basicModText[i];
+				fullMods.push(new CompositeMod(modType,displayText));
+			}
+			if(item.extended)
+			{
+				if(item.extended.hashes)
+				{
+					var hashes = item.extended.hashes;
+					if(hashes[modType])
+					{
+						for(var i = 0; i < hashes[modType].length; i++)
+						{		
+							fullMods[i].compositeModKey = hashes[modType][i][0];
+							hashToMod[fullMods[i].compositeModKey] = fullMods[i];
+							if (modType == "veiled"){
+								veiled_hashes.push(hashes[modType][i][0]);
+							}
+						}
+					}
+				}
+				if(item.extended.mods)
+				{
+					if(item.extended.mods[modType])
+					{
+						var moreModInfoListing = item.extended.mods[modType];
+						if(moreModInfoListing != null && moreModInfoListing.length > 0)
+						{
+							for(var i = 0; i < moreModInfoListing.length; i++)
+							{		
+								var moreModInfo = moreModInfoListing[i];
+								var modName = moreModInfo.name;
+								var modTier = moreModInfo.tier;
+								
+								if(moreModInfo.magnitudes)
+								{
+									var modMagnitudes = moreModInfo.magnitudes;
+									    if(modMagnitudes != null && modMagnitudes.length > 0)
+									    {
+										var keyToCompositeMods = [];
+										for(var v = 0; v < modMagnitudes.length; v++)
+										{  
+										    var modHashKey = modMagnitudes[v].hash;
+										    var modMin = modMagnitudes[v].min;
+										    var modMax = modMagnitudes[v].max;
+										    var modRange = '';
+										    if(modMin != modMax)
+										    {
+										        modRange = '['+ modMin + '-' + modMax + ']';
+										       
+										    }
+					 
+										    if(modMin != 0 || modMax != 0)
+										    {
+										        var itemMod = keyToCompositeMods[modHashKey];
+										       
+										        if(itemMod == null)
+										        {
+										            var itemMod = new ItemMod(modName, modTier, modRange);
+												try{
+										            hashToMod[modHashKey].mods.push(itemMod);}
+												catch(err){ console.log();}
+										            keyToCompositeMods[modHashKey] = itemMod;
+										        }
+										        else
+										        {
+										            if(modRange != '')
+										            {
+										                itemMod.modRangeString = itemMod.modRangeString.substring(0,itemMod.modRangeString.length - 1) + ' to ' + modRange.substring(1,modRange.length);
+										            }
+										        }  
+										    }                                      
+										}
+									    }
+								}
+								else if (modType == "veiled")
+								{
+									var modHashKey = veiled_hashes[i]
+									var modRange = '';
+									var itemMod = new ItemMod(modName, modTier, modRange);
+									hashToMod[modHashKey].mods.push(itemMod);
+								}
+							}
+						}
+					}
+				}
+			}
+		}			
+	}
+	return fullMods;
+}
+
+
+
+
+
+
+
+
+
+/*Beginning of render code*/
 
 
 
@@ -109,9 +239,13 @@ function parse_mods_extended(mods_extended, mod_class, box_content, add_separato
 		affix_classes = []
 		var mod_index = 0;
 		for (mod_index = 0; mod_index < mods.length; mod_index ++){
-			tier_strings.push(mods[mod_index].modTier)
-			range_strings.push(mods[mod_index].modRangeString)
+			if (mods[mod_index].modTier != ""){
+			tier_strings.push(mods[mod_index].modTier)}
+			if (mods[mod_index].modRangeString != ""){
+			range_strings.push(mods[mod_index].modRangeString)}
+			if (mods[mod_index].modName != ""){
 			name_strings.push(mods[mod_index].modName)
+			}
 
 			if( mods[mod_index].modTier[0] == "P" && !affix_classes.includes("pr")){
 				affix_classes.push("pr");
@@ -122,7 +256,7 @@ function parse_mods_extended(mods_extended, mod_class, box_content, add_separato
 		}
 		
 
-		box_content.appendChild(create_mod(mod_class, element.displayText, tier_strings.join(" + "),range_strings.join(" + "),"", 	name_strings.join(" + "), affix_classes.join(" "), veiled_mod = veiled_mods))
+		box_content.appendChild(create_mod(mod_class, element.displayText, tier_strings.join(" + ") + " ",range_strings.join(" + "),"", 	name_strings.join(" + "), affix_classes.join(" "), veiled_mod = veiled_mods))
 	});
 	if (add_separator && mods_extended.length > 0){
 		var separator = document.createElement('div');
@@ -383,6 +517,30 @@ function parse_requirements(item, content_div){
 
 }
 
+function append_gem_bar(experience, content_div){
+	experience_span = document.createElement('span');
+	experience_span.className = 'experienceBar';
+	
+	fill_span = document.createElement('span');
+	fill_span.className = 'fill';
+
+	progress = Math.floor(experience.progress * 100);
+	
+	gem_bar_span = document.createElement('span');
+	gem_bar_span.setAttribute('width', progress + "%");
+
+	fill_span.appendChild(gem_bar_span);
+	experience_span.appendChild(fill_span);
+
+	text_span = document.createElement('span');
+	text_span.className = 'colourDefault';
+	text_span.appendChild(document.createTextNode(experience.values[0]));
+	
+	content_div.appendChild(experience_span);
+	content_div.appendChild(text_span);
+
+}
+
 
 //takes in text and replaces markup with spans, intended for use on innerhtml of content wrappers
 var markup = ["default", "augmented", "unmet", "physicaldamage", "firedamage", "colddamage", "lightningdamage","chaosdamage", "uniqueitem", "rareitem", "magicitem", "whiteitem", "gemitem", "currencyitem", "questitem", "crafted", "divination", "corrupted", "bold", "italic", "normal", "prophecy", "size:31"]
@@ -454,11 +612,22 @@ function display_item(item)
 	parse_mods_extended(getMods(item, "crafted"), "craftedMod", content_div, false);
 	parse_mods_extended(getMods(item, "veiled"), "veiledMod", content_div, false, true);
 
+	if (typeof item.additionalProperties != 'undefined'){
+		item.additionalProperties.forEach(function(entry){
+			if (entry.name == "Experience")
+			{
+				append_gem_bar(item.additionalProperties.Experience, content_div);
+			}
+			else{
+			console.log(item.additionalProperties);
+			}
+		});
+	}
 
 	//if vaal gem then add the remaining information
 	if (typeof item.vaal != 'undefined')
 	{
-		append_vaal_gem_info(item, content_div)
+		append_vaal_gem_info(item, content_div);
 	}
 
 	//if prophecy then add the prophecyText
@@ -495,7 +664,7 @@ function display_item(item)
 	//final pass for poe markup for div cards and resonators
 	content_div.innerHTML = poe_markup(content_div.innerHTML);
 	box_container.appendChild(box_content);
-
+	
 	return box_container
 
 
