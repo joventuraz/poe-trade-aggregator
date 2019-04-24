@@ -518,6 +518,17 @@ function parse_requirements(item, content_div){
 }
 
 function append_gem_bar(experience, content_div){
+
+	var separator = document.createElement('div');
+	separator.className = "separator";
+	content_div.appendChild(separator);
+
+	additional_property_span = document.createElement('div');
+	additional_property_span.className = 'additionalProperty';
+	
+	format_span = document.createElement('div');
+	format_span.className = 'lc s';
+
 	experience_span = document.createElement('span');
 	experience_span.className = 'experienceBar';
 	
@@ -527,17 +538,22 @@ function append_gem_bar(experience, content_div){
 	progress = Math.floor(experience.progress * 100);
 	
 	gem_bar_span = document.createElement('span');
-	gem_bar_span.setAttribute('width', progress + "%");
+	gem_bar_span.setAttribute('style', "width: " + progress + "%;");
 
 	fill_span.appendChild(gem_bar_span);
 	experience_span.appendChild(fill_span);
 
 	text_span = document.createElement('span');
 	text_span.className = 'colourDefault';
-	text_span.appendChild(document.createTextNode(experience.values[0]));
+	text_span.appendChild(document.createTextNode(experience.values[0][0]));
 	
-	content_div.appendChild(experience_span);
-	content_div.appendChild(text_span);
+
+	additional_property_span.appendChild(format_span);
+
+	format_span.appendChild(experience_span);
+	format_span.appendChild(text_span);
+
+	content_div.appendChild(additional_property_span);
 
 }
 
@@ -612,11 +628,12 @@ function display_item(item)
 	parse_mods_extended(getMods(item, "crafted"), "craftedMod", content_div, false);
 	parse_mods_extended(getMods(item, "veiled"), "veiledMod", content_div, false, true);
 
+	/*handle gem exp*/
 	if (typeof item.additionalProperties != 'undefined'){
 		item.additionalProperties.forEach(function(entry){
 			if (entry.name == "Experience")
 			{
-				append_gem_bar(item.additionalProperties.Experience, content_div);
+				append_gem_bar(entry, content_div);
 			}
 			else{
 			console.log(item.additionalProperties);
