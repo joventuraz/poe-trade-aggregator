@@ -27,11 +27,6 @@ img[onclick]
 	cursor: pointer;
 }
 
-img {
-	margin: .25rem;
-	margin-left: 0rem;
-	height: 3rem;
-}
 
 input, textarea, select {
 	box-sizing: border-box;
@@ -403,33 +398,13 @@ a:visited
 	padding: .25rem;
 }
 
-.icon-wrapper
-{
+.itemPopupContainer 
+{    	text-align: center;
+	display: inline-block;
+	width: 40%;
+	horizontal-align: center;
 	position: relative;
-	display: inline-block;
 }
-
-.icon-wrapper .stack-text
-{
-	position: absolute;
-	display: inline-block;
-	bottom: 5px;
-	right: 5px;
-	padding: 2px;
-	background-color: rgba(255,255,255, .7);
-	border: 1px solid black;
-	border-radius: 5px;
-	color: #000000;
-	text-shadow: none;
-}
-
-.icon
-{
-	display: inline-block;
-}
-
-
-
 
 .results
 {
