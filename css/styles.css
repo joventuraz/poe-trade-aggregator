@@ -80,8 +80,6 @@ input, textarea, select {
 }
 
 #display-window {
-	height: 90vh;
-	overflow-y: scroll;
 	background-color: #1C1E23;
 	text-shadow: 1px 1px 1px rgba(0,0,0,1);
 	
@@ -477,3 +475,28 @@ input:checked + .checkboxlabel:after {
   float: left;
    width: 105px;
 }
+
+
+/* handle search bar*/
+body {
+    margin: 0;
+}
+
+#search-bar{
+position:fixed;
+  top: 0;
+  left: 0;
+height: 40px;
+background: #FFF;
+width:100%;
+z-index: 1;
+
+}
+
+#dummy-search{
+  top: 0;
+  left: 0;
+height:40px;
+width:100%;
+}
+
