@@ -1245,3 +1245,37 @@ element {
     font-family: 'FontinRegular', Verdana,Arial,Helvetica,sans-serif;
     font-size-adjust: 0.51;
 }
+
+/*body */
+.results {
+font-size: 13px;
+line-height: 1.45;
+}
+
+/*itempopup additional*/
+.results .row .middle .itemPopupAdditional, .results #trade .search-bar .middle .itemPopupAdditional, #trade .results .search-bar .middle .itemPopupAdditional {
+
+    margin: 5px 0 0;
+    text-align: center;
+
+}
+.results .newItemPopup, .results .row .middle .itemPopupAdditional, .results #trade .search-bar .middle .itemPopupAdditional, #trade .results .search-bar .middle .itemPopupAdditional {
+
+    margin: 0;
+    z-index: 0;
+
+}
+.newItemPopup, .results .row .middle .itemPopupAdditional, .results #trade .search-bar .middle .itemPopupAdditional, #trade .results .search-bar .middle .itemPopupAdditional {
+
+    background: rgba(0,0,0,0.8);
+    color: #7f7f7f;
+    margin: 0px 7px;
+
+}
+
+.results .row .middle .itemPopupAdditional .s, .results #trade .search-bar .middle .itemPopupAdditional .s, #trade .results .search-bar .middle .itemPopupAdditional .s {
+
+    padding: 0;
+    width: 33.33%;
+
+}

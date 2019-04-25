@@ -7,13 +7,10 @@ var maxItemsDisplayed = 300;
 var allDisplayedItems = [];
 var hasActiveSockets = false;
 
-function ItemRequest(searchpart, name, sound, volume, listings)
-{
+function ItemRequest(searchInfo, listings)
+{	
 	this.listings = listings;
-	this.searchpart = searchpart;
-	this.name = name;
-	this.sound = sound;
-	this.volume = volume;
+	this.searchInfo = searchInfo;
 }
 
 function RequestManager()
@@ -22,15 +19,15 @@ function RequestManager()
 	this.queueBox = document.getElementById('queue-count');
 	this.addRequest = function(newRequest)
 	{		
-		var listings = newRequest.listings.length;
+		var listings = newRequest.listings;
 		var filteredListing = [];
 			
-		for(var i = 0; i < listings; i++)
+		for(var i = 0; i < listings.length; i++)
 		{
 			filteredListing.push(newRequest.listings[i]);
 			if(filteredListing.length == 10)
 			{
-				var tmpRequest = new ItemRequest(newRequest.searchpart, newRequest.name, newRequest.sound, newRequest.volume, filteredListing);
+				var tmpRequest = new ItemRequest(newRequest.searchInfo, filteredListing);
 				this.itemRequests.push(tmpRequest);		
 				filteredListing = [];
 			}
@@ -38,7 +35,7 @@ function RequestManager()
 		
 		if(filteredListing.length > 0)
 		{
-			var tmpRequest = new ItemRequest(newRequest.searchpart, newRequest.name, newRequest.sound, newRequest.volume, filteredListing);
+			var tmpRequest = new ItemRequest(newRequest.searchInfo, filteredListing);
 			this.itemRequests.push(tmpRequest);
 		}			
 
@@ -52,14 +49,14 @@ function RequestManager()
 			this.queueBox.value = this.itemRequests.length;		
 			var getItemUrl = 'https://www.pathofexile.com/api/trade/fetch/';	
 			var itemUrl = getItemUrl + itemRequest.listings;
-			itemUrl += '?query=' + itemRequest.searchpart;
-			this.processItem(itemUrl, itemRequest.searchpart, itemRequest.name, itemRequest.sound, itemRequest.volume);			
+			itemUrl += '?query=' + itemRequest.searchInfo.searchUrlPart;
+			this.processItem(itemUrl, itemRequest.searchInfo);			
 		}
 	};
-	this.processItem = function (itemUrl, searchpart, name, sound, volume)
+	this.processItem = function (itemUrl, searchInfo)
 	{
-		callAjax(itemUrl, addItem, searchpart, name);
-		soundHandler(sound, volume);
+		callAjax(itemUrl, addItem, searchInfo);
+		soundHandler(searchInfo.soundId, searchInfo.soundVolume);
 	};
 }
 
@@ -87,85 +84,58 @@ function startSockets()
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
 		window.localStorage.setItem('searches', searchesString);
-		var searches = searchesString.split(',');
 		var soundId = document.getElementById('notification-sound').value;
 		window.localStorage.setItem('notification-sound', soundId);
-		
-		for(var i = 0; i < searches.length; i++)
+
+		var listingManager = new ListingManager(searchesString);
+		var providedSearches = listingManager.searches;
+		if(providedSearches != null && providedSearches.length > 0)
 		{
-			socketsToOpen = searches.length;
-			searches[i] = searches[i].trim();
-			var splitSeach = searches[i].split('[');
-			var search = splitSeach[0];
-			var tmp = socketUrl + search;
-			var searchSocket = new WebSocket(tmp);
-			searchSocket.searchpart = search;
-			if (splitSeach.length >1 )
+			for(var i = 0; i < providedSearches.length; i++)
 			{
-				searchSocket.searchName = splitSeach[1].slice(0, -1);
-			}
-			else
-			{
-				searchSocket.searchName ='';
-			}
-			if (splitSeach.length >2 && splitSeach[2] != ']')
-			{
-				searchSocket.searchSound = splitSeach[2].slice(0, -1);
-			}
-			else
-			{
-				searchSocket.searchSound =document.getElementById('notification-sound').value;
-			}
-			if (splitSeach.length >3 )
-			{
-				searchSocket.searchVolume = parseFloat(splitSeach[3]);
-				if (searchSocket.searchVolume > 1 | searchSocket.searchVolume < 0)
+				var searchInfo = providedSearches[i];
+				var searchSocket = new WebSocket(socketUrl + searchInfo.searchUrlPart);
+				searchSocket.searchInfo = searchInfo;
+				searchSocket.onopen = function(event)
 				{
-					searchSocket.searchVolume = 0.5;
-				}
-			}
-			else
-			{
-				searchSocket.searchVolume = 0.5;
-			}
-			sockets.push(searchSocket);
-			searchSocket.onopen = function(event)
-			{
-				openSockets++;
-				document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
-			};
-			searchSocket.onerror = function(event)
-			{
-				var errorMsg = this.searchpart + ' has experienced an error.';
-				alert(errorMsg);
-			};
-			searchSocket.onclose = function(event)
-			{
-				openSockets--;
-				if(openSockets < 1)
+					openSockets++;
+					document.getElementById('socket-count').value = openSockets + '/' + providedSearches.length;
+				};
+				searchSocket.onerror = function(event)
 				{
-					document.getElementById('socket-count').value;
+					var errorMsg = this.searchpart + ' has experienced an error.';
+					alert(errorMsg);
+				};
+				searchSocket.onclose = function(event)
+				{
+					openSockets--;
+					if(openSockets < 1)
+					{
+						document.getElementById('socket-count').value = 0;
+					}
+					document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
+				};
+				searchSocket.onmessage = function (event) 
+				{
+					var json = JSON.parse(event.data);
+					var itemRequest = new ItemRequest(this.searchInfo, json.new);
+					requestManager.addRequest(itemRequest);
 				}
-				document.getElementById('socket-count').value = openSockets + '/' + socketsToOpen;
-			};
-			searchSocket.onmessage = function (event) 
-			{
-				var json = JSON.parse(event.data);
-				var itemRequest = new ItemRequest(this.searchpart, this.searchName, this.searchSound, this.searchVolume, json.new);
-				requestManager.addRequest(itemRequest);
+				sockets.push(searchSocket);
 			}
-		}	
+		}
+		
 	}
 } 
 
-function callAjax(url, callback, param1, parm2){
+function callAjax(url, callback, searchInfo){
     var xmlhttp;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function()
     {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
         {
-            callback(xmlhttp.responseText, param1, parm2);
+            callback(xmlhttp.responseText, searchInfo);
         }
     }
     xmlhttp.open("GET", url, true);
@@ -198,7 +168,7 @@ function stopSockets()
 } 
 
 var frameType = ["Normal","Magic","Rare","Unique","Gem","Currency","DivinationCard","Quest","Prophecy","Relic"];
-function addItem(data, searchpart, searchName) 
+function addItem(data, searchInfo) 
 {
 	var json = JSON.parse(data);
 	var results = json.result;
@@ -208,7 +178,7 @@ function addItem(data, searchpart, searchName)
 	{	
 		var result = results[resultIndex];
 		//dView(result, searchpart, display);
-		nView(result, searchpart, searchName, display);
+		nView(result, searchInfo, display);
 	}
 } 
 
@@ -350,32 +320,13 @@ function getMods(item, modType)
 
 function buildCopyButton(buttonText, copyValue)
 {
-	/*var button = document.createElement("label");
-	button.classList.add('button');
-	
-	button.innerHTML = buttonText;
-
-	button.onclick = copyTextToClipboard(copyValue);
-	
-	var copyText = document.createElement("textarea");
-	copyText.btn = button;
-	copyText.value = copyValue;
-	copyText.classList.add('copy-text');
-	copyText.onclick = function()
-	{
-		this.btn.classList.add('copied');
-		this.select();
-		document.execCommand("copy");
-			 
-	};
-	button.append(copyText);*/
 
 	var inputElement = document.createElement('input');
 	inputElement.type = "button"
 	inputElement.className = "button"
 	inputElement.value = buttonText;
 	inputElement.addEventListener('click', function(){
-	    copyTextToClipboard(copyValue);;
+	    copyTextToClipboard(copyValue);
 	});
 
 	return inputElement;
@@ -467,12 +418,14 @@ function toggleNDisplay(){
 
 }
 
-function nView(result, searchpart, searchName, display)
+function nView(result, searchInfo, display)
 {
+	var searchpart = searchInfo.searchUrlPart;
+	var searchName = searchInfo.searchComment;
 	var new_row = document.createElement('div');
 	new_row.className = 'row';
-	new_row.appendChild(render_item(result.item))
-	new_row.appendChild(display_item(result.item))
+	new_row.appendChild(render_item(result.item));
+	new_row.appendChild(display_item(result.item));
 
 
 	var right_div = document.createElement('div');

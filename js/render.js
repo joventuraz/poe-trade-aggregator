@@ -347,8 +347,10 @@ function create_mod(mod_class,text, left_text = "", left_hover = "", right_text 
 	
 	
 	if (veiled_mod){
-		text = text.toLowerCase()
-		center_span.className = "lc " + text.substring(0, text.length - 2) + " " + text + " s"
+		lc_text = text.toLowerCase()
+		center_span.className = "lc " + lc_text.substring(0, lc_text.length - 2) + " " + lc_text + " s"
+
+		text = "Veiled " + text.substring(0, text.length - 2)
 	}
 
 	left_hover_span.appendChild(document.createTextNode(left_hover))
@@ -627,6 +629,50 @@ function poe_markup(text){
 
 
 
+//This function returns itempopupadditional for the display information: armour, es, evasion, dps, pdps, epds
+function item_popup_additional(item, fields, field_ids){
+	var item_popup_additional_div = document.createElement('div');
+	item_popup_additional_div.className = "itemPopupAdditional";
+	
+
+	for (var index = 0; index < 3; index++){
+		field_span = document.createElement('div');
+		field_span.className = "lc s"
+
+		field_span.appendChild(document.createTextNode(fields[index] + ": "))
+		field_value_span = document.createElement('span');
+		field_value_span.className = "colourDefault"
+
+		if (item.extended[field_ids[index]])
+		{
+			field_value = item.extended[field_ids[index]]
+			if(item.extended[field_ids[index] + "_aug"])
+			{
+				field_span.className += " aug"
+				field_value_span.className = "colourAugmented"
+				field_value_span.title = "at +20% Quality"
+			}
+			field_value_span.appendChild(document.createTextNode(field_value))
+		}
+		else
+		{
+			field_span.className += " invisible"
+		}
+		field_span.appendChild(field_value_span)
+		item_popup_additional_div.appendChild(field_span)
+	}
+	
+	return item_popup_additional_div
+
+
+}
+
+
+
+
+
+
+
 
 var frame_type_popup = ["normalPopup", "magicPopup", "rarePopup", "uniquePopup", "gemPopup", "currencyPopup", "divinationCard", 0, "prophecyPopup", "relicPopup"];
 //Takes in a json result from pathofexile.com/trade/api/fetch and builds a div for display
@@ -714,6 +760,16 @@ function display_item(item)
 	var middle_wrapper = document.createElement('div');
 	middle_wrapper.className = "middle"
 	middle_wrapper.appendChild(box_container)
+
+	/*Handle Addon*/
+	if (item.category.armour){
+		middle_wrapper.appendChild(item_popup_additional(item, ["Armour", "Evasion", "Energy Shield"], ["ar", "ev", "es"]))
+	}
+
+
+
+
+
 	return middle_wrapper
 
 
