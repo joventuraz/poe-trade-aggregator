@@ -458,7 +458,7 @@ input:checked + .checkboxlabel:after {
 /* custom css for nView*/
 .row{
   margin: 0 auto;
-  width: 964px;
+/*  width: 964px;*/
   overflow: hidden;
 }
 
