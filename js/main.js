@@ -83,13 +83,13 @@ function startSockets()
 		socketCounterBox.classList.add('active');
 		
 		var league = document.getElementById('league').value;
-		setCookie('league', league, cookieDurationDays);
+		window.localStorage.setItem('league', league);
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
-		setCookie('searches', searchesString, cookieDurationDays);
+		window.localStorage.setItem('searches', searchesString);
 		var searches = searchesString.split(',');
 		var soundId = document.getElementById('notification-sound').value;
-		setCookie('notification-sound', soundId, cookieDurationDays);
+		window.localStorage.setItem('notification-sound', soundId);
 		
 		for(var i = 0; i < searches.length; i++)
 		{
