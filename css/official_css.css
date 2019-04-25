@@ -1279,3 +1279,9 @@ line-height: 1.45;
     width: 33.33%;
 
 }
+
+.invisible {
+
+    visibility: hidden;
+
+}

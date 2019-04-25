@@ -1,89 +1,89 @@
 
-#display-window .results.compact .itemPopupContainer {
+#trade .results.compact .itemPopupContainer {
  text-align:initial;
  font-size:0.85em;
  font-family:unset;
  background:none
 }
-#display-window .results.compact .itemPopupContainer .itemHeader .l,
-#display-window .results.compact .itemPopupContainer .itemHeader .r {
+#trade .results.compact .itemPopupContainer .itemHeader .l,
+#trade .results.compact .itemPopupContainer .itemHeader .r {
  display:none
 }
-#display-window .results.compact .itemPopupContainer .itemHeader {
+#trade .results.compact .itemPopupContainer .itemHeader {
  background:none !important;
  font-size:1.1em;
  height:auto !important
 }
-#display-window .results.compact .itemPopupContainer .vaalHeader {
+#trade .results.compact .itemPopupContainer .vaalHeader {
  background:none;
  font-size:1.1em;
  height:auto !important;
  padding:0.4em 0em 0.5em 0em
 }
-#display-window .results.compact .itemPopupContainer .secDescrText {
+#trade .results.compact .itemPopupContainer .secDescrText {
  display:none
 }
-#display-window .results.compact .itemPopupContainer .secDescrText+.separator {
+#trade .results.compact .itemPopupContainer .secDescrText+.separator {
  display:none
 }
-#display-window .results.compact .itemPopupContainer .itemName {
+#trade .results.compact .itemPopupContainer .itemName {
  display:inline-block
 }
-#display-window .results.compact .itemPopupContainer .itemName .lc,
-#display-window .results.compact .itemPopupContainer .itemName .lc {
+#trade .results.compact .itemPopupContainer .itemName .lc,
+#trade .results.compact .itemPopupContainer .itemName .lc {
  padding:0 !important
 }
-#display-window .results.compact .itemPopupContainer .lc {
+#trade .results.compact .itemPopupContainer .lc {
  padding:0
 }
-#display-window .results.compact .itemPopupContainer .veiledMod .lc.prefix,
-#display-window .results.compact .itemPopupContainer .veiledMod .lc.suffix {
+#trade .results.compact .itemPopupContainer .veiledMod .lc.prefix,
+#trade .results.compact .itemPopupContainer .veiledMod .lc.suffix {
  background-image:none;
  animation:none;
  color:#888e93;
  width:auto
 }
-#display-window .results.compact .itemPopupContainer .lc.l,
-#display-window .results.compact .itemPopupContainer .lc.r {
+#trade .results.compact .itemPopupContainer .lc.l,
+#trade .results.compact .itemPopupContainer .lc.r {
  float:right;
  position:relative;
  padding:0 2px
 }
-#display-window .results.compact .itemPopupContainer .content>div .lc.r.pr .d::before,
-#display-window .results.compact .itemPopupContainer .content>div .lc.r.su .d::before {
+#trade .results.compact .itemPopupContainer .content>div .lc.r.pr .d::before,
+#trade .results.compact .itemPopupContainer .content>div .lc.r.su .d::before {
  content:'('
 }
-#display-window .results.compact .itemPopupContainer .content>div .lc.r.pr .d::after,
-#display-window .results.compact .itemPopupContainer .content>div .lc.r.su .d::after {
+#trade .results.compact .itemPopupContainer .content>div .lc.r.pr .d::after,
+#trade .results.compact .itemPopupContainer .content>div .lc.r.su .d::after {
  content:')'
 }
-#display-window .results.compact .itemPopupContainer .separator {
+#trade .results.compact .itemPopupContainer .separator {
  background:none;
  border-bottom:1px dotted #333;
  height:1px
 }
-#display-window .results.compact .itemPopupContainer.divinationCard {
+#trade .results.compact .itemPopupContainer.divinationCard {
  height:auto;
  width:auto;
  max-width:none
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .cardFace {
+#trade .results.compact .itemPopupContainer.divinationCard .cardFace {
  display:none
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .flavourTextWrapper {
+#trade .results.compact .itemPopupContainer.divinationCard .flavourTextWrapper {
  display:none
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent {
  background:none
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader {
  padding-top:initial
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader .itemName {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent .itemHeader .itemName {
  color:unset;
  font-size:unset
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent .stackSize {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent .stackSize {
  position:relative;
  left:auto;
  top:auto;
@@ -91,7 +91,7 @@
  height:auto;
  padding:0.4em 0em 0em 0em
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper {
  position:relative;
  left:auto;
  top:auto;
@@ -101,54 +101,54 @@
  padding:0em 0em 0.5em 0em;
  font-size:1em
 }
-#display-window .results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper .explicitModsContainer {
+#trade .results.compact .itemPopupContainer.divinationCard .itemBoxContent .explicitModsWrapper .explicitModsContainer {
  top:auto;
  transform:none
 }
-#display-window .results.compact .explicitMod>.lc.s,
-#display-window .results.compact .implicitMod>.lc.s,
-#display-window .results.compact .utilityMod>.lc.s {
+#trade .results.compact .explicitMod>.lc.s,
+#trade .results.compact .implicitMod>.lc.s,
+#trade .results.compact .utilityMod>.lc.s {
  color:#e8dfe2
 }
-#display-window .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3299347043"] {
+#trade .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3299347043"] {
  color:#D14E4E
 }
-#display-window .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3372524247"] {
+#trade .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_3372524247"] {
  color:#B97123
 }
-#display-window .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_4220027924"] {
+#trade .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_4220027924"] {
  color:#3F6DB3
 }
-#display-window .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_1671376347"] {
+#trade .results.compact .explicitMod>.lc.s[data-field="stat.explicit.stat_1671376347"] {
  color:#ADAA47
 }
-#display-window .results.compact .resultset:not(.exchange) {
+#trade .results.compact .resultset:not(.exchange) {
  display:flex;
  flex-wrap:wrap;
  width:100%;
  background-color:rgba(10,10,10,0.8)
 }
-#display-window .results.compact .resultset:not(.exchange) .row .sorted,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .sorted {
+#trade .results.compact .resultset:not(.exchange) .row .sorted,
+#trade .results.compact .resultset:not(.exchange) .search-bar .sorted {
  padding-right:22px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .sorted::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .sorted::after {
+#trade .results.compact .resultset:not(.exchange) .row .sorted::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .sorted::after {
  width:15px;
  height:15px;
  background:none;
  color:#e8dfe2
 }
-#display-window .results.compact .resultset:not(.exchange) .row .sorted.sorted-desc::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-desc::after {
+#trade .results.compact .resultset:not(.exchange) .row .sorted.sorted-desc::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-desc::after {
  content:'↓'
 }
-#display-window .results.compact .resultset:not(.exchange) .row .sorted.sorted-asc::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-asc::after {
+#trade .results.compact .resultset:not(.exchange) .row .sorted.sorted-asc::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .sorted.sorted-asc::after {
  content:'↑'
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional {
  font-family:inherit;
  font-size:0.9em;
  margin:0;
@@ -158,144 +158,144 @@
  top:18px;
  background:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s {
  display:block;
  width:auto;
  height:15px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s span.colourAugmented::before,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s span.colourAugmented::before {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s span.colourAugmented::before,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s span.colourAugmented::before {
  content:" " attr(title) ": ";
  color:#7f7f7f
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ar"],
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ar"],
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ev"],
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ev"],
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="es"],
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="es"] {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ar"],
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ar"],
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="ev"],
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="ev"],
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s:not(.aug)[data-field="es"],
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s:not(.aug)[data-field="es"] {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.invisible,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.invisible {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.invisible,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.invisible {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s::after {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s::after {
  right:-16px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.sorted,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.sorted {
+#trade .results.compact .resultset:not(.exchange) .row .itemPopupAdditional .s.sorted,
+#trade .results.compact .resultset:not(.exchange) .search-bar .itemPopupAdditional .s.sorted {
  padding:0
 }
-#display-window .results.compact .resultset:not(.exchange) .row,
-#display-window .results.compact .resultset:not(.exchange) .search-bar {
+#trade .results.compact .resultset:not(.exchange) .row,
+#trade .results.compact .resultset:not(.exchange) .search-bar {
  width:100%;
  flex-wrap:wrap;
  border-bottom:1px solid #333;
  max-width:920px;
  margin:0 auto
 }
-#display-window .results.compact .resultset:not(.exchange) .row.exchange,
-#display-window .results.compact .resultset:not(.exchange) .exchange.search-bar {
+#trade .results.compact .resultset:not(.exchange) .row.exchange,
+#trade .results.compact .resultset:not(.exchange) .exchange.search-bar {
  width:100%;
  flex-wrap:wrap
 }
-#display-window .results.compact .resultset:not(.exchange) .row.controls,
-#display-window .results.compact .resultset:not(.exchange) .controls.search-bar {
+#trade .results.compact .resultset:not(.exchange) .row.controls,
+#trade .results.compact .resultset:not(.exchange) .controls.search-bar {
  width:100%;
  border-bottom:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .left,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .left {
+#trade .results.compact .resultset:not(.exchange) .row .left,
+#trade .results.compact .resultset:not(.exchange) .search-bar .left {
  width:25%;
  float:left
 }
-#display-window .results.compact .resultset:not(.exchange) .row .middle,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .middle {
+#trade .results.compact .resultset:not(.exchange) .row .middle,
+#trade .results.compact .resultset:not(.exchange) .search-bar .middle {
  width:75%;
  align-self:flex-start;
  padding-right:64px;
  padding-left:0;
  float:left
 }
-#display-window .results.compact .resultset:not(.exchange) .row .right,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .right {
+#trade .results.compact .resultset:not(.exchange) .row .right,
+#trade .results.compact .resultset:not(.exchange) .search-bar .right {
  width:100%;
  padding-left:25%;
  margin-top:5px;
  align-self:flex-end
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details {
+#trade .results.compact .resultset:not(.exchange) .row .details,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details {
  text-align:left;
  padding:0 0px;
  margin:0
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price {
+#trade .results.compact .resultset:not(.exchange) .row .details .price,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price {
  font-family:inherit
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price>span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price>span {
+#trade .results.compact .resultset:not(.exchange) .row .details .price>span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price>span {
  float:left
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price>span>span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price>span>span {
+#trade .results.compact .resultset:not(.exchange) .row .details .price>span>span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price>span>span {
  font-family:inherit
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price>span>span.price-label,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price>span>span.price-label {
+#trade .results.compact .resultset:not(.exchange) .row .details .price>span>span.price-label,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price>span>span.price-label {
  text-transform:lowercase;
  font-weight:bold;
  color:#e8dfe2
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price span.sorted,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted {
+#trade .results.compact .resultset:not(.exchange) .row .details .price span.sorted,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted {
  background:initial
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price span.sorted::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted::after {
+#trade .results.compact .resultset:not(.exchange) .row .details .price span.sorted::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price span.sorted::after {
  background:initial;
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price span {
+#trade .results.compact .resultset:not(.exchange) .row .details .price span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price span {
  display:inline-block;
  padding:0;
  position:initial;
  font-size:0.9em
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price img,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price img {
+#trade .results.compact .resultset:not(.exchange) .row .details .price img,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price img {
  width:18px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price .price-label.buyout-price,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.buyout-price,
-#display-window .results.compact .resultset:not(.exchange) .row .details .price .price-label.no-price,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.no-price {
+#trade .results.compact .resultset:not(.exchange) .row .details .price .price-label.buyout-price,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.buyout-price,
+#trade .results.compact .resultset:not(.exchange) .row .details .price .price-label.no-price,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price .price-label.no-price {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price .currency-text span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text span {
+#trade .results.compact .resultset:not(.exchange) .row .details .price .currency-text span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text span {
  vertical-align:baseline
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price .currency-text.currency-image span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text.currency-image span {
+#trade .results.compact .resultset:not(.exchange) .row .details .price .currency-text.currency-image span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text.currency-image span {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price .currency-text::after,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text::after {
+#trade .results.compact .resultset:not(.exchange) .row .details .price .currency-text::after,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price .currency-text::after {
  content:'\00a0';
  display:inline-block
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .price br,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .price br {
+#trade .results.compact .resultset:not(.exchange) .row .details .price br,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .price br {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .info,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .info {
+#trade .results.compact .resultset:not(.exchange) .row .details .info,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .info {
  margin:0;
  padding-top:0;
  padding-bottom:0;
@@ -305,56 +305,56 @@
  height:13px;
  line-height:13px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .info .profile-link,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .info .profile-link {
+#trade .results.compact .resultset:not(.exchange) .row .details .info .profile-link,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .info .profile-link {
  display:none
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .btns,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .btns {
+#trade .results.compact .resultset:not(.exchange) .row .details .btns,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .btns {
  clear:none;
  padding:0
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .btns .btn,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .btns .btn {
+#trade .results.compact .resultset:not(.exchange) .row .details .btns .btn,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .btns .btn {
  line-height:16px;
  height:18px;
  border-color:#444;
  vertical-align:middle
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .btns .pull-left,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .btns .pull-left {
+#trade .results.compact .resultset:not(.exchange) .row .details .btns .pull-left,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .btns .pull-left {
  padding:0
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .btns>span,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .btns>span {
+#trade .results.compact .resultset:not(.exchange) .row .details .btns>span,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .btns>span {
  padding:0;
  height:18px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .status,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .status {
+#trade .results.compact .resultset:not(.exchange) .row .details .status,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .status {
  height:18px
 }
-#display-window .results.compact .resultset:not(.exchange) .row .details .character-name,
-#display-window .results.compact .resultset:not(.exchange) .search-bar .details .character-name {
+#trade .results.compact .resultset:not(.exchange) .row .details .character-name,
+#trade .results.compact .resultset:not(.exchange) .search-bar .details .character-name {
  display:inline;
  font-size:0.9em
 }
-#display-window .results.compact.two .row:not(.exchange):nth-child(even),
-#display-window .results.compact.two .search-bar:not(.exchange):nth-child(even) {
+#trade .results.compact.two .row:not(.exchange):nth-child(even),
+#trade .results.compact.two .search-bar:not(.exchange):nth-child(even) {
  background:none
 }
-#display-window .results.compact.two .row:not(.exchange):nth-child(4n+3),
-#display-window .results.compact.two .search-bar:not(.exchange):nth-child(4n+3),
-#display-window .results.compact.two .row:not(.exchange):nth-child(4n),
-#display-window .results.compact.two .search-bar:not(.exchange):nth-child(4n) {
+#trade .results.compact.two .row:not(.exchange):nth-child(4n+3),
+#trade .results.compact.two .search-bar:not(.exchange):nth-child(4n+3),
+#trade .results.compact.two .row:not(.exchange):nth-child(4n),
+#trade .results.compact.two .search-bar:not(.exchange):nth-child(4n) {
  background-color:rgba(20,20,20,0.8)
 }
-#display-window .results.compact.two .resultset .row ,
-#display-window .results.compact.two .resultset .search-bar {
+#trade .results.compact.two .resultset .row ,
+#trade .results.compact.two .resultset .search-bar {
  width:50%;
  border-bottom:1px solid #333
 }
-#display-window .results.compact.two .resultset .row:not(.exchange):nth-child(even),
-#display-window .results.compact.two .resultset .search-bar:not(.exchange):nth-child(even) {
+#trade .results.compact.two .resultset .row:not(.exchange):nth-child(even),
+#trade .results.compact.two .resultset .search-bar:not(.exchange):nth-child(even) {
  border-left:1px solid #333
 }

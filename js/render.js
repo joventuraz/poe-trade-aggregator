@@ -640,6 +640,8 @@ function item_popup_additional(item, fields, field_ids){
 		field_span.className = "lc s"
 
 		field_span.appendChild(document.createTextNode(fields[index] + ": "))
+
+		field_span.setAttribute("data-field", field_ids[index])
 		field_value_span = document.createElement('span');
 		field_value_span.className = "colourDefault"
 

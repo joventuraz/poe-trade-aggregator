@@ -406,7 +406,7 @@ function showHide()
 }
 
 function toggleNDisplay(){
-	result_div = document.getElementById('display-window');
+	result_div = document.getElementById('toggle_div');
 	if(result_div.className == "results")
 	{
 		result_div.className = "results compact"
