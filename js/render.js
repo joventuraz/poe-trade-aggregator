@@ -78,6 +78,12 @@ function getMods(item, modType)
 										    var modHashKey = modMagnitudes[v].hash;
 										    var modMin = modMagnitudes[v].min;
 										    var modMax = modMagnitudes[v].max;
+											if (modMin < 0 && modMax < 0){
+											var temp = modMin
+											modMin = -modMax
+											modMax = -modMin
+											}
+											
 										    var modRange = '';
 										    if(modMin != modMax)
 										    {
@@ -185,7 +191,7 @@ function create_header(item)
 
 	item_name = item.name;
 	var item_header = document.createElement('div');
-	item_header.appendChild(create_text_span("l", ""))
+	item_header.appendChild(create_text_span("l", ""));
 	if(item_name != ""){
 		item_header.className = "itemHeader doubleLine";
 		item_header_name = document.createElement('div');
@@ -194,6 +200,7 @@ function create_header(item)
 		item_header_name.appendChild(create_text_span("lc", item.name))
 		
 		item_header.appendChild(item_header_name)
+		item_header.appendChild(document.createTextNode("                                                   "));
 		
 	}
 	else{
@@ -644,7 +651,6 @@ function display_item(item)
 	
 	parse_mods_extended(item, "enchant", content_div);
 	parse_mods_extended(item, "implicit", content_div);
-	
 	parse_mods_extended(item, "fractured", content_div, false);
 	parse_mods_extended(item, "explicit", content_div, false);
 	parse_mods_extended(item, "crafted", content_div, false);

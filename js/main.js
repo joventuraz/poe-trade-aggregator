@@ -350,10 +350,13 @@ function getMods(item, modType)
 
 function buildCopyButton(buttonText, copyValue)
 {
-	var button = document.createElement("label");
+	/*var button = document.createElement("label");
 	button.classList.add('button');
 	
 	button.innerHTML = buttonText;
+
+	button.onclick = copyTextToClipboard(copyValue);
+	
 	var copyText = document.createElement("textarea");
 	copyText.btn = button;
 	copyText.value = copyValue;
@@ -362,12 +365,81 @@ function buildCopyButton(buttonText, copyValue)
 	{
 		this.btn.classList.add('copied');
 		this.select();
-		document.execCommand("copy");		 
+		document.execCommand("copy");
+			 
 	};
-	button.append(copyText);
+	button.append(copyText);*/
 
-	return button;
+	var inputElement = document.createElement('input');
+	inputElement.type = "button"
+	inputElement.className = "button"
+	inputElement.value = buttonText;
+	inputElement.addEventListener('click', function(){
+	    copyTextToClipboard(copyValue);;
+	});
+
+	return inputElement;
 }
+
+
+function copyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+
+  //
+  // *** This styling is an extra step which is likely not required. ***
+  //
+  // Why is it here? To ensure:
+  // 1. the element is able to have focus and selection.
+  // 2. if element was to flash render it has minimal visual impact.
+  // 3. less flakyness with selection and copying which **might** occur if
+  //    the textarea element is not visible.
+  //
+  // The likelihood is the element won't even render, not even a
+  // flash, so some of these are just precautions. However in
+  // Internet Explorer the element is visible whilst the popup
+  // box asking the user for permission for the web page to
+  // copy to the clipboard.
+  //
+
+  // Place in top-left corner of screen regardless of scroll position.
+  textArea.style.position = 'fixed';
+  textArea.style.top = 0;
+  textArea.style.left = 0;
+
+  // Ensure it has a small width and height. Setting to 1px / 1em
+  // doesn't work as this gives a negative w/h on some browsers.
+  textArea.style.width = '2em';
+  textArea.style.height = '2em';
+
+  // We don't need padding, reducing the size if it does flash render.
+  textArea.style.padding = 0;
+
+  // Clean up any borders.
+  textArea.style.border = 'none';
+  textArea.style.outline = 'none';
+  textArea.style.boxShadow = 'none';
+
+  // Avoid flash of white box if rendered for any reason.
+  textArea.style.background = 'transparent';
+
+
+  textArea.value = text;
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+
+  document.body.removeChild(textArea);
+}
+
 
 function showHide()
 {
@@ -402,11 +474,15 @@ function nView(result, searchpart, searchName, display)
 	new_row.appendChild(render_item(result.item))
 	new_row.appendChild(display_item(result.item))
 
+
+	var right_div = document.createElement('div');
+	right_div.className = 'right';
+	
 	if (result.listing.price){
-		new_row.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
+		right_div.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
 	}
-	new_row.appendChild(buildCopyButton('Whisper', result.listing.whisper));
-	new_row.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
+	right_div.appendChild(buildCopyButton('Whisper', result.listing.whisper));
+	right_div.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
 	
 	if(result.listing.account.name)
 	{
@@ -414,7 +490,7 @@ function nView(result, searchpart, searchName, display)
 		profileLink.href = 'https://www.pathofexile.com/account/view-profile/' + result.listing.account.name;
 		profileLink.appendChild(document.createTextNode(result.listing.account.name));
 		profileLink.target = '_blank';
-		new_row.appendChild(profileLink);
+		right_div.appendChild(profileLink);
 	}
 
 	if(searchpart != null)
@@ -431,11 +507,12 @@ function nView(result, searchpart, searchName, display)
 			searchLink.appendChild(document.createTextNode(', ' + searchpart));
 		}
 		searchLink.target = '_blank';
-		new_row.appendChild(searchLink);
+		right_div.appendChild(searchLink);
 	}
 
 
-
+	new_row.appendChild(right_div);
+	
 	display.insertBefore(new_row, lastItem);
 	lastItem = new_row;
 	

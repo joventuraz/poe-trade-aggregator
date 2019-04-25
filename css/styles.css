@@ -1,5 +1,5 @@
 body {
-	font-size: 16px;
+	font-size: 13px;
 	vertical-align: middle;
 	color: #7F7F70;
 }
@@ -102,7 +102,7 @@ input, textarea, select {
 
 .copy-text {
 	position: absolute;
-	left: -100vw;
+	visibility: hidden;
 }
 
 .button {
@@ -453,3 +453,27 @@ input:checked + .checkboxlabel:after {
   right: 0;
 }
 
+
+
+/* custom css for nView*/
+.row{
+  margin: 0 auto;
+  width: 964px;
+  overflow: hidden;
+}
+
+
+.left{
+  float: left;
+   width: 105px;
+}
+
+.middle{
+  float: left;
+   width: 752px;
+}
+
+.right{
+  float: left;
+   width: 105px;
+}
