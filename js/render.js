@@ -232,8 +232,10 @@ function create_header(item)
 
 //Takes in a potential mod list, mod_class, and box_content to append to
 
-function parse_mods_extended(mods_extended, mod_class, box_content, add_separator = true, veiled_mods = false){
-
+function parse_mods_extended(item, mod_type, box_content, add_separator = true, veiled_mods = false){
+	
+	mods_extended = getMods(item, mod_type)
+	mod_class = mod_type + "Mod"
 	
 	mods_extended.forEach(function(element) {
 		mods = element.mods
@@ -260,8 +262,22 @@ function parse_mods_extended(mods_extended, mod_class, box_content, add_separato
 			}
 		}
 		
-
-		box_content.appendChild(create_mod(mod_class, element.displayText, tier_strings.join(" + ") + " ",range_strings.join(" + "),"", 	name_strings.join(" + "), affix_classes.join(" "), veiled_mod = veiled_mods))
+		left_string = tier_strings.join(" + ") + " "
+		left_hover = range_strings.join(" + ")
+		right_string = ""
+		right_hover = name_strings.join(" + ")
+		
+		if (mod_class == "enchantMod"){
+			last_char = right_hover[right_hover.length -1]
+			if (last_char == "1" || last_char == "2" || last_char == "3")
+			{
+				//inverted tier
+				//left_hover = "E" + last_char
+			}
+			right_hover = ""
+		
+		}
+		box_content.appendChild(create_mod(mod_class, element.displayText, left_string, left_hover, right_string, right_hover, affix_classes.join(" "), veiled_mod = veiled_mods))
 	});
 	if (add_separator && mods_extended.length > 0){
 		var separator = document.createElement('div');
@@ -626,12 +642,13 @@ function display_item(item)
 	parse_requirements(item, content_div);
 
 	
-	parse_mods_extended(getMods(item, "enchanted"), "enchantMod", content_div);
-	parse_mods_extended(getMods(item, "implicit"), "implicitMod", content_div);
-	parse_mods_extended(getMods(item, "fractured"), "fracturedMod", content_div, false);
-	parse_mods_extended(getMods(item, "explicit"), "explicitMod", content_div, false);
-	parse_mods_extended(getMods(item, "crafted"), "craftedMod", content_div, false);
-	parse_mods_extended(getMods(item, "veiled"), "veiledMod", content_div, false, true);
+	parse_mods_extended(item, "enchant", content_div);
+	parse_mods_extended(item, "implicit", content_div);
+	
+	parse_mods_extended(item, "fractured", content_div, false);
+	parse_mods_extended(item, "explicit", content_div, false);
+	parse_mods_extended(item, "crafted", content_div, false);
+	parse_mods_extended(item, "veiled", content_div, false, true);
 
 	/*handle gem exp*/
 	if (typeof item.additionalProperties != 'undefined'){
@@ -763,6 +780,10 @@ function render_item(item){
 	icon_div.appendChild(icon_image)
 	icon_div.appendChild(create_socket_div(item))
 	
+	if (item.stackSize)
+	{
+		icon_div.appendChild(create_text_span("stackSize", item.stackSize))
+	}
 	left_wrapper.appendChild(item_container);
 	
 	return left_wrapper

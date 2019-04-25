@@ -1221,3 +1221,25 @@ element {
     position: relative;
     transition: opacity 0.5s;
 }
+
+
+/* stacksize */
+.newItemContainer .stackSize {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: -1px;
+    left: 4px;
+    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000, -1px -1px 3px #000, 0 -1px 3px #000, 1px -1px 0 #000, 1px 0 3px #000, 1px 1px 3px #000, 0 1px 3px #000, -1px 1px 3px #000, -1px 0 3px #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.FontinRegular, .heading2, .shopBuyItemModal, shopBuyPackageModal, .shopBuyItemModal h1, shopBuyPackageModal h1, .shopBuyItemModal .totalCost, shopBuyPackageModal .totalCost, .newItemContainer .stackSize {
+    font-weight: normal;
+    font-style: normal;
+    line-height: normal;
+    font-family: 'FontinRegular', Verdana,Arial,Helvetica,sans-serif;
+    font-size-adjust: 0.51;
+}
