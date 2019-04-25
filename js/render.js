@@ -767,6 +767,9 @@ function display_item(item)
 	if (item.category.armour){
 		middle_wrapper.appendChild(item_popup_additional(item, ["Armour", "Evasion", "Energy Shield"], ["ar", "ev", "es"]))
 	}
+	if (item.category.weapons){
+		middle_wrapper.appendChild(item_popup_additional(item, ["DPS", "Physical DPS", "Elemental DPS"], ["dps", "pdps", "edps"]))
+	}
 
 
 

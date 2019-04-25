@@ -207,19 +207,7 @@
  width:100%;
  border-bottom:none
 }
-#trade .results.compact .resultset:not(.exchange) .row .left,
-#trade .results.compact .resultset:not(.exchange) .search-bar .left {
- width:25%;
- float:left
-}
-#trade .results.compact .resultset:not(.exchange) .row .middle,
-#trade .results.compact .resultset:not(.exchange) .search-bar .middle {
- width:75%;
- align-self:flex-start;
- padding-right:64px;
- padding-left:0;
- float:left
-}
+
 #trade .results.compact .resultset:not(.exchange) .row .right,
 #trade .results.compact .resultset:not(.exchange) .search-bar .right {
  width:100%;
@@ -357,4 +345,20 @@
 #trade .results.compact.two .resultset .row:not(.exchange):nth-child(even),
 #trade .results.compact.two .resultset .search-bar:not(.exchange):nth-child(even) {
  border-left:1px solid #333
+}
+
+
+/*
+CUSTOM STUFF
+*/
+#trade .results.compact .resultset:not(.exchange) .row .left,
+#trade .results.compact .resultset:not(.exchange) .search-bar .left {
+ width:105px;
+ float:left
+}
+#trade .results.compact .resultset:not(.exchange) .row .middle,
+#trade .results.compact .resultset:not(.exchange) .search-bar .middle {
+ width:752px;
+ align-self:flex-start;
+ float:left
 }
