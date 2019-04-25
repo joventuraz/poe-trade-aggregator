@@ -16,7 +16,7 @@ function SearchListing(listingString)
 	this.searchUrlPart = '';
 	this.searchComment = '';
 	this.soundId = '';
-	this.soundVolume = 0.25;
+	this.soundVolume = 0.5;
 	
 	var searchParts = listingString.split('[');
 	for (var i = 0; i < searchParts.length; i++)
@@ -38,7 +38,7 @@ function SearchListing(listingString)
 		{
 			if(searchPart != null)
 			{
-				this.soundVolume = searchPart;
+				this.soundVolume = parseFloat(searchPart);
 			}
 		}
 	}

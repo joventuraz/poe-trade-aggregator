@@ -451,7 +451,7 @@ function nView(result, searchInfo, display)
 		var searchLink = document.createElement('a');
 		var league = document.getElementById('league').value;
 		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;	
-		if(searchName != null)
+		if(searchName != null && searchName!='')
 		{
 			searchLink.appendChild(document.createTextNode(', ' + searchName + ' (' + searchpart + ')' ));
 		}
