@@ -83,13 +83,13 @@ function startSockets()
 		socketCounterBox.classList.add('active');
 		
 		var league = document.getElementById('league').value;
-		setCookie('league', league, cookieDurationDays);
+		window.localStorage.setItem('league', league);
 		var socketUrl = "wss://pathofexile.com/api/trade/live/" + league + '/';
 		var searchesString = document.getElementById('searches').value;
-		setCookie('searches', searchesString, cookieDurationDays);
+		window.localStorage.setItem('searches', searchesString);
 		var searches = searchesString.split(',');
 		var soundId = document.getElementById('notification-sound').value;
-		setCookie('notification-sound', soundId, cookieDurationDays);
+		window.localStorage.setItem('notification-sound', soundId);
 		
 		for(var i = 0; i < searches.length; i++)
 		{
@@ -421,16 +421,20 @@ function nView(result, searchpart, searchName, display)
 	{
 		var searchLink = document.createElement('a');
 		var league = document.getElementById('league').value;
-		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
-		searchLink.appendChild(document.createTextNode(', ' + searchpart));
+		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;	
+		if(searchName != null)
+		{
+			searchLink.appendChild(document.createTextNode(', ' + searchName + ' (' + searchpart + ')' ));
+		}
+		else
+		{
+			searchLink.appendChild(document.createTextNode(', ' + searchpart));
+		}
 		searchLink.target = '_blank';
 		new_row.appendChild(searchLink);
 	}
 
-	if(searchName != null)
-	{
-		new_row.appendChild(document.createTextNode(', ' + searchName));
-	}
+
 
 	display.insertBefore(new_row, lastItem);
 	lastItem = new_row;

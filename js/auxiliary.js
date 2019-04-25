@@ -1,10 +1,12 @@
-var cookieDurationDays = 91; 
-checkCookie(); 
+//var cookieDurationDays = 91; 
+initialiseLocalData(); 
  
+ /*
 function setCookie(cname, cvalue, exdays) { 
 	var d = new Date(); 
 	d.setTime(d.getTime() + (exdays*24*60*60*1000)); 
-	var expires = "expires="+ d.toUTCString(); 
+	var expires = "expires="+ d.toUTCString();
+	var maxAge = "Max-Age="+ (exdays*24*60*60).toString(); 
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"; 
 } 
  
@@ -24,22 +26,23 @@ function getCookie(cname) {
 	} 
 	return ""; 
 } 
+*/
  
-function checkCookie() { 
+function initialiseLocalData() { 
 	//console.log('checkCookie'); 
-	var searchslist = getCookie('searches'); 
-	if (searchslist != "") { 
-		console.log('searchslist cookie: ' + searchslist); 
+	var searchslist = window.localStorage.getItem('searches'); 
+	if (searchslist != "" && searchslist != null ) { 
+		console.log('searchslist: ' + searchslist); 
 		document.getElementById('searches').value = searchslist; 
 	}  
-	var league = getCookie('league'); 
-	if (league != "") { 
-		console.log('league cookie: ' + league); 
+	var league = window.localStorage.getItem('league'); 
+	if (league != "" && league != null) { 
+		console.log('league: ' + league); 
 		document.getElementById('league').value = league; 
 	} 
-	var soundId = getCookie('notification-sound'); 
-	if (soundId != "") { 
-		console.log('soundId cookie: ' + soundId); 
+	var soundId = window.localStorage.getItem('notification-sound'); 
+	if (soundId != "" && soundId != null) { 
+		console.log('soundId: ' + soundId); 
 		document.getElementById('notification-sound').value = soundId; 
 	}  
 }  
