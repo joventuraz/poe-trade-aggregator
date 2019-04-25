@@ -61,7 +61,10 @@ function populateSdounds(){
 
 function soundHandler(soundId, volume){ 
 	//console.log(soundId,volume );
-	if(soundId != null && soundId.length > 0){
+	if(soundId != null){
+		if (soundId == ''){
+			soundId = document.getElementById('notification-sound').value;
+		}
 		if (sounds[soundId] == null){
 			//this will cuase error if file doesnt exist but i dont know how to check if it exists
 			sounds[soundId] =  new Audio('./js/sounds/' + soundId + '.mp3'); 
