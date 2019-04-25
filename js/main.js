@@ -421,16 +421,20 @@ function nView(result, searchpart, searchName, display)
 	{
 		var searchLink = document.createElement('a');
 		var league = document.getElementById('league').value;
-		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
-		searchLink.appendChild(document.createTextNode(', ' + searchpart));
+		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;	
+		if(searchName != null)
+		{
+			searchLink.appendChild(document.createTextNode(', ' + searchName + ' (' + searchpart + ')' ));
+		}
+		else
+		{
+			searchLink.appendChild(document.createTextNode(', ' + searchpart));
+		}
 		searchLink.target = '_blank';
 		new_row.appendChild(searchLink);
 	}
 
-	if(searchName != null)
-	{
-		new_row.appendChild(document.createTextNode(', ' + searchName));
-	}
+
 
 	display.insertBefore(new_row, lastItem);
 	lastItem = new_row;
