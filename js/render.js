@@ -464,7 +464,7 @@ function parse_requirements(item, content_div){
 	
 	if (typeof item.ilvl != 'undefined' && item.ilvl > 0)
 	{
-		add_separator = true
+			add_separator = true
 			property_div = document.createElement('div');
 			property_div.className = "displayProperty"
 			property_span = document.createElement('span');
@@ -483,7 +483,25 @@ function parse_requirements(item, content_div){
 			content_div.appendChild(property_div)
 	
 	}
+	if (typeof item.talismanTier != 'undefined')
+	{		
+			add_separator = true
+			property_div = document.createElement('div');
+			property_div.className = "displayProperty"
+			property_span = document.createElement('span');
+			property_span.className = "lc"
+			
+			
+			property_span.appendChild(create_text_span("", "Talisman Tier"))
+			property_span.appendChild(document.createTextNode(": "))
+			
+			
+			property_span.appendChild(create_text_span(property_value_classes[0], item.talismanTier))
 
+			property_div.appendChild(property_span)
+			content_div.appendChild(property_div)
+	
+	}
 	
 	if (typeof item.requirements != 'undefined')
 	{
