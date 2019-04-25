@@ -174,12 +174,33 @@ function addItem(data, searchInfo)
 	var results = json.result;
 
 	var display = document.getElementById('display-window');
+	
+	
+
+	var resultset_div = document.createElement('div');
+	resultset_div.className = "resultset";	
+	display.insertBefore(resultset_div, display.firstChild);
+
 	for(var resultIndex = 0; resultIndex < results.length; resultIndex++)
 	{	
 		var result = results[resultIndex];
 		//dView(result, searchpart, display);
-		nView(result, searchInfo, display);
+		new_row = nView(result, searchInfo, resultset_div);
+	
+		resultset_div.appendChild(new_row);
+		
+		allDisplayedItems.push(lastItem);
+		if(allDisplayedItems.length > maxItemsDisplayed)
+		{
+			var oldestItem = allDisplayedItems.shift();
+			if(oldestItem != null)
+			{
+				oldestItem.parentNode.removeChild(oldestItem);
+				oldestItem = null;			
+			}
+		}
 	}
+	
 } 
 
 function ItemMod(modName, modTier, modRangeString)
@@ -406,7 +427,7 @@ function showHide()
 }
 
 function toggleNDisplay(){
-	result_div = document.getElementById('toggle_div');
+	result_div = document.getElementById('display-window');
 	if(result_div.className == "results")
 	{
 		result_div.className = "results compact"
@@ -417,6 +438,7 @@ function toggleNDisplay(){
 	}
 
 }
+
 
 function nView(result, searchInfo, display)
 {
@@ -465,18 +487,6 @@ function nView(result, searchInfo, display)
 
 
 	new_row.appendChild(right_div);
-	
-	display.insertBefore(new_row, lastItem);
-	lastItem = new_row;
-	
-	allDisplayedItems.push(lastItem);
-	if(allDisplayedItems.length > maxItemsDisplayed)
-	{
-		var oldestItem = allDisplayedItems.shift();
-		if(oldestItem != null)
-		{
-			oldestItem.parentNode.removeChild(oldestItem);
-			oldestItem = null;			
-		}
-	}
+
+	return new_row
 }

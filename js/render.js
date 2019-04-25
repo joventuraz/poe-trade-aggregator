@@ -186,14 +186,14 @@ function append_vaal_gem_info(item, content_div)
 
 
 //Creates the header for the popupbox 
-function create_header(item)
+function create_header(item, decorations = "")
 {	
-
+	console.log(decorations)
 	item_name = item.name;
 	var item_header = document.createElement('div');
 	item_header.appendChild(create_text_span("l", ""));
 	if(item_name != ""){
-		item_header.className = "itemHeader doubleLine";
+		item_header.className = "itemHeader doubleLine " + decorations;
 		item_header_name = document.createElement('div');
 		item_header_name.className = "itemName";
 		
@@ -204,7 +204,7 @@ function create_header(item)
 		
 	}
 	else{
-		item_header.className = "itemHeader";
+		item_header.className = "itemHeader " + decorations;
 	}
 	
 	item_header_type = document.createElement('div');
@@ -705,8 +705,22 @@ function display_item(item)
 	var box_content = document.createElement('div');
 	box_content.className = "itemBoxContent";
 
+	decoration = ""
+	if(item.fractured){
+		decoration += "fractured "
+	}
+	if(item.synthesised){
+		decoration += "synthesised "
+	}	
+	if(item.shaper){
+		decoration += "shaper "
+	}
+	if(item.elder){
+		decoration += "elder "
+	}
 
-	box_content.appendChild(create_header(item));
+
+	box_content.appendChild(create_header(item, decoration));
 	var content_div = document.createElement('div');
 	content_div.className = "content";
 	
