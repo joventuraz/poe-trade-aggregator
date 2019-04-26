@@ -480,6 +480,7 @@ input:checked + .checkboxlabel:after {
 /* handle search bar*/
 body {
     margin: 0;
+background: rgb(28, 30, 35);;
 }
 
 #search-bar{
@@ -499,4 +500,53 @@ z-index: 2;
 height:40px;
 width:100%;
 }
+
+
+/* whisper stuff */
+
+.price{
+display:inline-block;
+width:100%;
+}
+
+.profileLink{
+display:inline-block;
+width:100%;
+}
+
+.searchLink{
+display:inline-block;
+width:100%;
+}
+
+.searchName{
+display:inline-block;
+width:100%;
+}
+
+
+.compact .price{
+display:inline-block;
+width: auto;
+
+}
+
+.compact .profileLink{
+display:inline-block;
+width: auto;
+
+}
+
+.compact .searchLink{
+display:inline-block;
+width: auto;
+
+}
+
+.compact .searchName{
+display:inline-block;
+width: auto;
+
+} 
+
 

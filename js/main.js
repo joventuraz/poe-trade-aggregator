@@ -454,35 +454,51 @@ function nView(result, searchInfo, display)
 	right_div.className = 'right';
 	
 	if (result.listing.price){
-		right_div.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
+		var price_div = document.createElement('div');
+		price_div.className = 'price';
+		price_div.appendChild(document.createTextNode(result.listing.price.type + " " + result.listing.price.amount + " "+ result.listing.price.currency))
+		right_div.appendChild(price_div)
 	}
 	right_div.appendChild(buildCopyButton('Whisper', result.listing.whisper));
 	right_div.appendChild(buildCopyButton('Copy Item', atob(result.item.extended.text)));
 	
 	if(result.listing.account.name)
 	{
+		var profile_div = document.createElement('div');
+		profile_div.className = 'profileLink';
+
 		var profileLink = document.createElement('a');
 		profileLink.href = 'https://www.pathofexile.com/account/view-profile/' + result.listing.account.name;
 		profileLink.appendChild(document.createTextNode(result.listing.account.name));
 		profileLink.target = '_blank';
-		right_div.appendChild(profileLink);
+		profile_div.appendChild(profileLink);
+		right_div.appendChild(profile_div);
 	}
 
 	if(searchpart != null)
 	{
+		var search_div = document.createElement('div');
+		search_div.className = 'searchLink';
+
 		var searchLink = document.createElement('a');
 		var league = document.getElementById('league').value;
-		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;	
+		searchLink.href = 'https://www.pathofexile.com/trade/search/' + league + '/' + searchpart;
+		
+		searchLink.appendChild(document.createTextNode(searchpart));
+		searchLink.target = '_blank';
+
+
+		search_div.appendChild(searchLink);
+		right_div.appendChild(search_div);
+
+	
 		if(searchName != null && searchName!='')
 		{
-			searchLink.appendChild(document.createTextNode(', ' + searchName + ' (' + searchpart + ')' ));
+			var search_name_div = document.createElement('div');
+			search_name_div.className = 'searchName';
+			search_name_div.appendChild(document.createTextNode(searchName));
+			right_div.appendChild(search_name_div);
 		}
-		else
-		{
-			searchLink.appendChild(document.createTextNode(', ' + searchpart));
-		}
-		searchLink.target = '_blank';
-		right_div.appendChild(searchLink);
 	}
 
 
