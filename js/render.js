@@ -188,7 +188,6 @@ function append_vaal_gem_info(item, content_div)
 //Creates the header for the popupbox 
 function create_header(item, decorations = "")
 {	
-	console.log(decorations)
 	item_name = item.name;
 	var item_header = document.createElement('div');
 	item_header.appendChild(create_text_span("l", ""));
@@ -688,10 +687,16 @@ function item_popup_additional(item, fields, field_ids){
 }
 
 
+function append_additional_text_div(item,content_div, property_bool, class_name, text)
+{
+	if (property_bool){
+		var prophecy_div = document.createElement('div');
+		prophecy_div.className = class_name;
+		prophecy_div.appendChild(create_text_span('lc', text));
+		content_div.appendChild(prophecy_div);
+	}
 
-
-
-
+}
 
 
 var frame_type_popup = ["normalPopup", "magicPopup", "rarePopup", "uniquePopup", "gemPopup", "currencyPopup", "divinationCard", 0, "prophecyPopup", "relicPopup"];
@@ -755,33 +760,11 @@ function display_item(item)
 		append_vaal_gem_info(item, content_div);
 	}
 
-	//if prophecy then add the prophecyText
-	if (typeof item.prophecyText != 'undefined'){
-		var prophecy_div = document.createElement('div');
-		prophecy_div.className = 'prophecyText colourDefault';
-		prophecy_div.appendChild(create_text_span('lc', item.prophecyText));
-		content_div.appendChild(prophecy_div);
-	}
-
-	//Add in text at end for unidentified, corrupted, mirrored
-	if (!item.identified){
-		var corrupted_div = document.createElement('div');
-		corrupted_div.className = 'unmet';
-		corrupted_div.appendChild(create_text_span('lc', 'Unidentified'));
-		content_div.appendChild(corrupted_div);
-	}
-	if (item.duplicated){
-		var mirrored_div = document.createElement('div');
-		mirrored_div.className = 'augmented';
-		mirrored_div.appendChild(create_text_span('lc', 'Mirrored'));
-		content_div.appendChild(mirrored_div);
-	}
-	if (item.corrupted){
-		var corrupted_div = document.createElement('div');
-		corrupted_div.className = 'unmet';
-		corrupted_div.appendChild(create_text_span('lc', 'Corrupted'));
-		content_div.appendChild(corrupted_div);
-	}
+	append_additional_text_div(item, content_div, item.hasOwnProperty("prophecyText"), 'prophecyText colourDefault', item.prophecyText);
+	append_additional_text_div(item, content_div, item.hasOwnProperty("identified") && !item.identified, 'unmet', 'Unidentified');
+	append_additional_text_div(item, content_div,  item.hasOwnProperty("duplicated") && item.duplicated, 'augmented', 'Mirrored');
+	append_additional_text_div(item, content_div, item.hasOwnProperty("corrupted") && item.corrupted, 'unmet', 'Corrupted');
+	
 
 
 	box_content.appendChild(content_div);
@@ -805,6 +788,7 @@ function display_item(item)
 
 
 
+	parse_mods_extended(item, "pseudo", content_div);
 
 
 	return middle_wrapper
