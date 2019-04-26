@@ -78,10 +78,10 @@ function getMods(item, modType)
 										    var modHashKey = modMagnitudes[v].hash;
 										    var modMin = modMagnitudes[v].min;
 										    var modMax = modMagnitudes[v].max;
-											if (modMin < 0 && modMax < 0){
-											var temp = modMin
+											if (modMax < 0){
+											var temp = modMin	
 											modMin = -modMax
-											modMax = -modMin
+											modMax = -temp
 											}
 											
 										    var modRange = '';
@@ -741,18 +741,6 @@ function display_item(item)
 	parse_mods_extended(item, "crafted", content_div, false);
 	parse_mods_extended(item, "veiled", content_div, false, true);
 
-	/*handle gem exp*/
-	if (typeof item.additionalProperties != 'undefined'){
-		item.additionalProperties.forEach(function(entry){
-			if (entry.name == "Experience")
-			{
-				append_gem_bar(entry, content_div);
-			}
-			else{
-			console.log(item.additionalProperties);
-			}
-		});
-	}
 
 	//if vaal gem then add the remaining information
 	if (typeof item.vaal != 'undefined')
@@ -765,6 +753,18 @@ function display_item(item)
 	append_additional_text_div(item, content_div,  item.hasOwnProperty("duplicated") && item.duplicated, 'augmented', 'Mirrored');
 	append_additional_text_div(item, content_div, item.hasOwnProperty("corrupted") && item.corrupted, 'unmet', 'Corrupted');
 	
+	/*handle gem exp*/
+	if (typeof item.additionalProperties != 'undefined'){
+		item.additionalProperties.forEach(function(entry){
+			if (entry.name == "Experience")
+			{
+				append_gem_bar(entry, content_div);
+			}
+			else{
+			console.log(item.additionalProperties);
+			}
+		});
+	}
 
 
 	box_content.appendChild(content_div);
